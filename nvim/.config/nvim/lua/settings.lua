@@ -4,6 +4,13 @@ vim.o.hlsearch = false
 -- Make line numbers default
 vim.wo.number = true
 
+-- Line numbers
+vim.opt.nu = true
+vim.opt.relativenumber = true
+
+-- Set scrolloff
+vim.opt.scrolloff = 8
+
 -- Make 2 space indents
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -45,3 +52,4 @@ vim.opt.guicursor = ""
 
 -- Disable line wrap
 vim.opt.wrap = false
+

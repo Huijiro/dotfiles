@@ -17,7 +17,7 @@ export EDITOR="nvim"
 # User configuration
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -56,6 +56,7 @@ autoload -U compinit && compinit
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  nvm
   zsh-autosuggestions
 )
 
@@ -85,3 +86,4 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 export PATH="/home/huijiro/.turso:$PATH"
 
 eval "$(starship init zsh)"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

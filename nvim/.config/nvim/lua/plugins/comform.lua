@@ -6,7 +6,7 @@ return {
       formatters = {
         lua = { "stylua" },
         go = { "goimports", "gofmt" },
-        javascript = { { "prettierd", "prettier" }, "eslint_d" },
+        javascript = { "eslint_d", { "prettierd", "prettier" }, },
         markdown = { { "prettier" } },
       },
       format_on_save = {

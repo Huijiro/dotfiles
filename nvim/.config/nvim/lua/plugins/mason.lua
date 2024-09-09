@@ -32,16 +32,15 @@ return {
         ["lua_ls"] = function()
           local lspconfig = require("lspconfig")
           lspconfig.lua_ls.setup {
-            capabilities = capabilities,
+            capabilities = vim.tbl_deep_extend('force', capabilities, lspconfig.lua_ls.capabilities or {}),
             settings = {
               Lua = {
                 runtime = { version = 'LuaJIT' },
                 workspace = {
-                  checkThirdParty = false,
                   library = {
-                    unpack(vim.api.nvim_get_runtime_file('', true))
+                    vim.env.VIMRUNTIME,
                   }
-                },
+                }
               }
             }
           }
@@ -66,6 +65,8 @@ return {
           vim.keymap.set('n', 'R', vim.lsp.buf.rename, opts)
           vim.keymap.set({ 'n', 'v' }, 'C', vim.lsp.buf.code_action, { desc = "Code Action", buffer = ev.buf })
           vim.keymap.set('n', 'gr', builtin.lsp_references, opts)
+          vim.keymap.set('n', ']g', vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
+          vim.keymap.set('n', '[g', vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" })
         end,
       })
     end

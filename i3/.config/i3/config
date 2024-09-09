@@ -213,9 +213,11 @@ exec --no-startup-id picom --experimental-backends -b
 # Wallpaper setup
 exec_always --no-startup-id feh --bg-scale ~/Pictures/Wallpapers
 
+# Neat stuff
 gaps inner 10
 smart_gaps on
 
 default_border pixel 2
 default_floating_border pixel 2
 smart_borders on
+mouse_warping none

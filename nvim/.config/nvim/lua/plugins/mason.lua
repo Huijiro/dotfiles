@@ -8,7 +8,7 @@ return {
     config = function()
       require("mason").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "tsserver", "clangd" }
+        ensure_installed = { "lua_ls", "ts_ls", "clangd" }
       })
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()

@@ -2,7 +2,12 @@
   "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
   "runtime.version": "LuaJIT",
   "workspace": {
-    "library": ["$VIMRUNTIME/lua"]
+    "library": [
+      "$VIMRUNTIME/lua",
+      "~/.local/share/nvim/lazy"
+    ],
+    "maxPreload": 1000,
+    "preloadFileSize": 1000
   },
   "diagnostics": {
     "enable": true,

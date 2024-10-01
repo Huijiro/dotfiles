@@ -14,9 +14,6 @@ return {
         },
         ensure_installed = { "lua", "vim", "typescript", "json", "vimdoc", "markdown" },
         sync_install = false,
-        autotag = {
-          enable = true
-        },
       }
     end,
   },

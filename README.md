@@ -1,1 +1,1 @@
-I use Kubuntu BTW
+I use Arch BTW

@@ -1,3 +1,8 @@
+* {
+	font-size: 20px;
+	font-family: CaskaydiaMono Nerd Font Mono, monospace;
+}
+
 window#waybar {
 	background: #292b2e;
 	color: #fdf6e3;

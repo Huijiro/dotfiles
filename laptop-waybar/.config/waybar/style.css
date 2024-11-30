@@ -18,6 +18,10 @@ window#waybar {
 	background: #1a1a1a;
 }
 
+#tray {
+  padding-right: 10px;
+}
+
 #workspaces,
 #clock.1,
 #clock.2,
@@ -27,9 +31,11 @@ window#waybar {
 #cpu,
 #battery,
 #disk,
+#network,
 #tray {
 	background: #1a1a1a;
 }
+
 
 #workspaces button {
 	padding: 0 2px;

@@ -17,6 +17,14 @@ return {
       },
     })
 
+    comform.formatters_by_ft.javascript = {
+      "prettier"
+    }
+
+    comform.formatters_by_ft.typescript = {
+      "prettier"
+    }
+
     comform.formatters_by_ft.markdown = {
       "prettier"
     }

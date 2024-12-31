@@ -52,7 +52,7 @@ return {
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
         callback = function(ev)
-          local builtin = require('telescope.builtin');
+          local builtin = require('fzf-lua');
 
           local opts = { buffer = ev.buf }
           vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
@@ -61,12 +61,12 @@ return {
           vim.keymap.set('n', 'gws', builtin.lsp_workspace_symbols, opts)
           vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
           vim.keymap.set('n', 'gi', builtin.lsp_implementations, opts)
-          vim.keymap.set('n', 'gtd', builtin.lsp_type_definitions, opts)
+          vim.keymap.set('n', 'gtd', builtin.lsp_typedefs, opts)
           vim.keymap.set('n', 'R', vim.lsp.buf.rename, opts)
           vim.keymap.set({ 'n', 'v' }, 'C', vim.lsp.buf.code_action, { desc = "Code Action", buffer = ev.buf })
           vim.keymap.set('n', 'gr', builtin.lsp_references, opts)
-          vim.keymap.set('n', ']g', vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
-          vim.keymap.set('n', '[g', vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" })
+          vim.keymap.set('n', ']g', vim.diagnostic.get_next, { desc = "Next Diagnostic" })
+          vim.keymap.set('n', '[g', vim.diagnostic.get_prev, { desc = "Prev Diagnostic" })
         end,
       })
     end

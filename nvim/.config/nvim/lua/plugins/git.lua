@@ -17,12 +17,16 @@ return {
     end
   },
   {
+    "sindrets/diffview.nvim",
+    keys = {
+      { "<leader>D", function() require('diffview').open() end, desc = "Open diffview" },
+    }
+  },
+  {
     "NeogitOrg/neogit",
     dependencies = {
-      "nvim-lua/plenary.nvim",         -- required
-      "sindrets/diffview.nvim",        -- optional - Diff integration
-
-      "nvim-telescope/telescope.nvim", -- optional
+      "sindrets/diffview.nvim",
+      "nvim-lua/plenary.nvim", -- required
     },
     config = true,
     keys = {

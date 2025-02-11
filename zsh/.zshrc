@@ -93,3 +93,19 @@ export PATH="/home/huijiro/.turso:$PATH"
 
 eval "$(starship init zsh)"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+<<<<<<< HEAD
+=======
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
+. "$HOME/.cargo/env"
+
+# pnpm
+export PNPM_HOME="/home/huijiro/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+>>>>>>> origin/main

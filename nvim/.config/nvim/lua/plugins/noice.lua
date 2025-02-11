@@ -41,11 +41,10 @@ return {
         long_message_to_split = true, -- long messages will be sent to a split
       },
     })
-    require("telescope").load_extension("noice")
   end,
   keys = {
-    { '<leader>fn', '<cmd>:Telescope notify<cr>', desc = "Notifications" },
-    { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
-    { '<leader>n',  '<cmd>:Noice dismiss<cr>',    desc = "Dismiss Noitifications" }
+    { '<leader>fn', "<cmd>:Noice fzf<cr>",                                         desc = "Notifications" },
+    { "<S-Enter>",  function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c",                     desc = "Redirect Cmdline" },
+    { '<leader>n',  '<cmd>:Noice dismiss<cr>',                                     desc = "Dismiss Noitifications" }
   }
 }

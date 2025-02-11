@@ -12,6 +12,8 @@ return {
           end,
           additional_vim_regex_highlighting = false,
         },
+        auto_install = true,
+        autotag = { enable = true },
         ensure_installed = { "lua", "vim", "typescript", "json", "vimdoc", "markdown" },
         sync_install = false,
       }

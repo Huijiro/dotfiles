@@ -52,4 +52,3 @@ vim.opt.guicursor = ""
 
 -- Disable line wrap
 vim.opt.wrap = false
-

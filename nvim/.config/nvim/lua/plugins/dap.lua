@@ -32,18 +32,6 @@ return {
       "theHamsta/nvim-dap-virtual-text",
       opts = {},
     },
-
-    -- which key integration
-    {
-      "folke/which-key.nvim",
-      optional = true,
-      opts = {
-        defaults = {
-          ["<leader>d"] = { name = "+debug" },
-        },
-      },
-    },
-
     -- mason.nvim integration
     {
       "jay-babu/mason-nvim-dap.nvim",

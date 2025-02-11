@@ -1,37 +1,25 @@
 return {
   'stevearc/conform.nvim',
+  lazy = false,
   config = function()
     local comform = require('conform')
     comform.setup({
-      formatters = {
-        lua = { "stylua" },
-        go = { "goimports", "gofmt" },
-        javascript = { "eslint" },
-        typescript = { "eslint" },
-        markdown = { { "prettier" } },
+      formatters_by_ft = {
+        javascript = { "prettier" },
+        jsonc = { "prettier" },
+        json = { "prettier" },
+        typescriptreact = { "prettier" },
+        htmlangular = { "prettier" },
+        typescript = { "prettier" },
+        markdown = { "prettier" },
+        cpp = { "clang-format" },
+        python = { "black" },
       },
       format_on_save = {
-        -- These options will be passed to conform.format()
         timeout_ms = 500,
         lsp_fallback = true,
       },
     })
-
-    comform.formatters_by_ft.javascript = {
-      "prettier"
-    }
-
-    comform.formatters_by_ft.typescript = {
-      "prettier"
-    }
-
-    comform.formatters_by_ft.markdown = {
-      "prettier"
-    }
-
-    comform.formatters_by_ft.cpp = {
-      "clang-format",
-    }
   end,
   keys = {
     {

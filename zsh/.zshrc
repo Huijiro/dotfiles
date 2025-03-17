@@ -10,7 +10,7 @@ TERM=xterm-256color
 export GOPATH=$HOME/go
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$HOME/Apps:/var/lib/flatpak/exports/bin:/opt/nvim/:$GOPATH/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/Apps:/var/lib/flatpak/exports/bin:/opt/nvim/:$GOPATH/bin:/home/huijiro/.dotnet/tools:$PATH
 
 export EDITOR="nvim"
 
@@ -106,3 +106,10 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# bun completions
+[ -s "/home/huijiro/.bun/_bun" ] && source "/home/huijiro/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

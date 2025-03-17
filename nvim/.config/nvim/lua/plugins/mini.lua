@@ -12,6 +12,22 @@ return {
     })
   end,
   keys = {
-    { "<leader>e", function() require('mini.files').open() end, desc = "Open file" },
+    {
+      "<leader>e",
+      function()
+        local files = require("mini.files")
+        files.open(vim.api.nvim_buf_get_name(0))
+        files.reveal_cwd()
+      end,
+      desc = "Open current working directory on file"
+    },
+    {
+      "<leader>E",
+      function()
+        local files = require("mini.files")
+        files.open()
+      end,
+      desc = "Open current working directory"
+    }
   }
 }

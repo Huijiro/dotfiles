@@ -10,14 +10,15 @@ return {
         json = { "prettier" },
         typescriptreact = { "prettier" },
         htmlangular = { "prettier" },
+        html = { "prettier" },
         typescript = { "prettier" },
         markdown = { "prettier" },
         cpp = { "clang-format" },
         python = { "black" },
       },
       format_on_save = {
-        timeout_ms = 500,
-        lsp_fallback = true,
+        timeout_ms = 15000,
+        lsp_format = "fallback",
       },
     })
   end,
@@ -25,7 +26,9 @@ return {
     {
       "<leader>i",
       function()
-        require("conform").format()
+        require("conform").format({
+          async = true,
+        })
       end,
       desc = "Format buffer",
     }

@@ -10,7 +10,7 @@ TERM = "xterm-256color"
 [window]
 decorations = "None"
 dynamic_padding = false
-opacity = 0.4
+opacity = 0.9
 blur = true
 
 # TokyoNight Alacritty Colors

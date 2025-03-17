@@ -1,6 +1,5 @@
 return {
   {
-
     "mfussenegger/nvim-lint",
     dependencies = {
       "rshkarin/mason-nvim-lint",
@@ -13,7 +12,9 @@ return {
         end,
       })
 
-      require("lint").linters_by_ft = {
+      local lint = require("lint")
+
+      lint.linters_by_ft = {
         go = { "golangcilint" },
         javascript = { "eslint" },
         typescript = { "eslint" },

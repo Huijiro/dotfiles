@@ -12,6 +12,7 @@ decorations = "None"
 dynamic_padding = false
 opacity = 0.9
 blur = true
+startup_mode = "Maximized"
 
 # TokyoNight Alacritty Colors
 # Default colors

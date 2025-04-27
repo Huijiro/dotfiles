@@ -28,6 +28,14 @@ return {
   },
   config = function()
     require('noice').setup({
+
+      filter = {
+        event = "msg_show",
+        any = {
+          { find = "Starting Supermaven" },
+          { find = "Supermaven Free Tier" }
+        }
+      },
       lsp = {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,

@@ -1,7 +1,6 @@
 return {
   "max397574/better-escape.nvim",
-  opts = {
-    mapping = { "jk", "jj" },
-    clear_empty_lines = true
-  }
+  config = function()
+    require("better_escape").setup()
+  end
 }

@@ -10,7 +10,7 @@ TERM=xterm-256color
 export GOPATH=$HOME/go
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$HOME/Apps:/var/lib/flatpak/exports/bin:/opt/nvim/:$GOPATH/bin:/home/huijiro/.dotnet/tools:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/Apps:/var/lib/flatpak/exports/bin:/opt/nvim/:$GOPATH/bin:/home/huijiro/.dotnet/tools:$PATH
 
 export EDITOR="nvim"
 

@@ -14,6 +14,7 @@ return {
       { "<leader>o",  group = "Optional Tools" },
       { "<leader>d",  group = "Debug" },
       { "<leader>x",  group = "Trouble" },
+      { "<leader>a",  group = "Avante" },
       { "<leader>w",  ":w<cr>",                desc = "Save" },
       { "<leader>q",  ":q<cr>",                desc = "Quit" },
       { "<leader>Q",  ":q!<cr>",               desc = "Force Quit" },

@@ -5,13 +5,13 @@ return {
     local comform = require('conform')
     comform.setup({
       formatters_by_ft = {
-        javascript = { "prettier" },
+        javascript = { "biome" },
         jsonc = { "prettier" },
         json = { "prettier" },
-        typescriptreact = { "prettier" },
+        typescriptreact = { "biome" },
         htmlangular = { "prettier" },
         html = { "prettier" },
-        typescript = { "prettier" },
+        typescript = { "biome" },
         markdown = { "prettier" },
         cpp = { "clang-format" },
         python = { "black" },

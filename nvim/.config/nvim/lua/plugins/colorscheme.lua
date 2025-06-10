@@ -18,7 +18,7 @@ return {
     opts = {},
     config = function()
       require("tokyonight").setup({
-        style = "night",
+        style = "storm",
         styles = {
           sidebars = "transparent",
           floats = "transparent",

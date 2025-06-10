@@ -10,11 +10,6 @@ return {
       }
     },
     {
-      dir = "~/Dev/blink-supermaven",
-      name = "blink-supermaven",
-      dev = true
-    },
-    {
       "L3MON4D3/LuaSnip",
       version = "v2.*",
     },
@@ -23,16 +18,14 @@ return {
       opts = {
         enable_events = true
       }
-    }
+    },
+    'Kaiser-Yang/blink-cmp-avante',
+    "huijiro/blink-cmp-supermaven",
   },
-
-
-  ---@module 'blink.cmp'
-  ---@type blink.cmp.Config
   opts = {
     snippets = { preset = "luasnip" },
     sources = {
-      default = { "lsp", 'path', "supermaven", "snippets", 'buffer' },
+      default = { "avante", "lsp", 'path', "supermaven", "snippets", 'buffer' },
       providers = {
         lsp = {
           score_offset = 10,
@@ -42,7 +35,14 @@ return {
           name = 'supermaven',
           module = "blink-cmp-supermaven",
           async = true
-        }
+        },
+        avante = {
+          score_offset = 100,
+          module = 'blink-cmp-avante',
+          name = 'Avante',
+          opts = {
+          }
+        },
       }
     },
     fuzzy = { implementation = "lua" },

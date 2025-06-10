@@ -8,44 +8,12 @@ return {
     config = function()
       require("mason").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ts_ls", "clangd" }
+        ensure_installed = { "lua_ls", "ts_ls", "clangd" },
+        automatic_enable = true
       })
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
-
-      require("mason-lspconfig").setup_handlers {
-        -- The first entry (without a key) will be the default handler
-        -- and will be called for each installed server that doesn't have
-        -- a dedicated handler.
-        function(server_name) -- default handler (optional)
-          local server = require("lspconfig")[server_name]
-          server.setup {
-            capabilities = vim.tbl_deep_extend('force', capabilities, server.capabilities or {})
-          }
-        end,
-        ["svelte"] = function()
-          local svelte = require("lspconfig").svelte;
-          svelte.setup {
-          }
-        end,
-        ["lua_ls"] = function()
-          local lspconfig = require("lspconfig")
-          lspconfig.lua_ls.setup {
-            capabilities = vim.tbl_deep_extend('force', capabilities, lspconfig.lua_ls.capabilities or {}),
-            settings = {
-              Lua = {
-                runtime = { version = 'LuaJIT' },
-                workspace = {
-                  library = {
-                    vim.env.VIMRUNTIME,
-                  }
-                }
-              }
-            }
-          }
-        end,
-      }
 
       vim.keymap.set('n', 'J', vim.diagnostic.open_float)
 

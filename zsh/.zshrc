@@ -14,6 +14,11 @@ export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/Apps:/var/lib/flatpa
 
 export EDITOR="nvim"
 
+# External exports file
+if [[ -r $HOME/.zshexports ]]; then
+  source $HOME/.zshexports
+fi
+
 # User configuration
 
 # fnm
@@ -94,11 +99,6 @@ export PATH="/home/huijiro/.turso:$PATH"
 eval "$(starship init zsh)"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-. "$HOME/.cargo/env"
-
 # pnpm
 export PNPM_HOME="/home/huijiro/.local/share/pnpm"
 case ":$PATH:" in
@@ -113,3 +113,4 @@ esac
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$PATH:/home/huijiro/.local/bin"

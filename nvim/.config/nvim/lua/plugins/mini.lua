@@ -28,8 +28,16 @@ return {
         "<leader>e",
         function()
           local files = require("mini.files")
-          files.open(vim.api.nvim_buf_get_name(0))
-          files.reveal_cwd()
+          local buf = vim.api.nvim_buf_get_name(0)
+
+
+
+          if buf:match("ministarter") then
+            files.open()
+          else
+            files.open(vim.api.nvim_buf_get_name(0))
+            files.reveal_cwd()
+          end
         end,
         desc = "Open current working directory on file"
       },

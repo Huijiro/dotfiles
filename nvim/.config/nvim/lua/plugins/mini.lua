@@ -78,6 +78,25 @@ return {
           starter.gen_hook.aligning("center", "center")
         },
         footer = function()
+          local languages = {
+            "Rust",
+            "Lua",
+            "Javascript",
+            "Typescript",
+            "Java",
+            "COBOL",
+            "Fortran",
+            "BASIC"
+          }
+
+          local content_creator = {
+            "The Primeagen",
+            "Theo",
+            "The Cherno",
+            "Fireship",
+            "Low Level",
+            "Acerola"
+          }
           -- Show random message from array of messages (jokes)
           local messages = {
             "Programming is pain.",
@@ -88,7 +107,18 @@ return {
             "You can't do that on a programming contest.",
             "[ERROR] Neovim stopped working! -jk",
             "Uncaught TypeError: object is not a function",
-            "We are " .. math.random(1, 30) .. " days away from AI stealing all our jobs."
+            "We are " .. math.random(1, 30) .. " days away from AI stealing all our jobs.",
+            "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.",
+            "Don't delete coconut.png",
+            "I forgot how to implement HTTP2/3",
+            "How do I reset my main branch again?",
+            "Sorry, commited to main.",
+            "[object Object]",
+            "Have you considered using a language that is more suited for this task? Like " ..
+            languages[math.random(1, #languages)] .. ".",
+            "Have you consider paying for a course?",
+            "What would " .. content_creator[math.random(1, #content_creator)] .. " do?",
+            "When are you studying assembly again?"
           }
 
           local random = math.random(1, #messages)

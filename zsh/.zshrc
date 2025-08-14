@@ -88,7 +88,7 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 # Make completion non case sensitive
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':autocomplete:*' default-context history-incremental-search-backward
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -6,6 +6,17 @@ Personal configuration files managed with [GNU Stow](https://www.gnu.org/softwar
 
 ## 🚀 Quick Start
 
+### Automated Setup (Arch Linux)
+```bash
+# Clone dotfiles
+git clone https://github.com/yourusername/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+
+# Run automated setup (installs packages + configures everything)
+./scripts/initial_setup
+```
+
+### Manual Setup (Any Linux)
 ```bash
 # Clone dotfiles
 git clone https://github.com/yourusername/dotfiles.git ~/dotfiles
@@ -44,6 +55,9 @@ stow */
 - **[starship/](starship/)** - Cross-shell prompt configuration
 - **[lazydocker/](lazydocker/)** - Terminal UI for Docker management
 - **[walker/](walker/)** - Application launcher configuration
+
+### 🤖 Automation
+- **[scripts/](scripts/)** - Setup and maintenance scripts (includes Arch Linux auto-installer)
 
 ## 🔧 Installation
 

@@ -26,9 +26,9 @@ cd ~/dotfiles
 stow nvim    # Neovim configuration
 stow tmux    # Tmux configuration  
 stow zsh     # Zsh shell configuration
-
-# Or install everything at once
-stow */
+stow starship # Starship prompt
+stow alacritty # Terminal emulator (if desired)
+# ... install only what you need
 ```
 
 ## 📦 What's Included
@@ -166,7 +166,8 @@ stow newapp
 ```bash
 cd ~/dotfiles
 git pull
-stow --restow */  # Re-stow everything
+# Re-stow your installed configurations
+stow --restow nvim tmux zsh starship  # Example for core configs
 ```
 
 ### Removing

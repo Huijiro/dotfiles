@@ -22,52 +22,28 @@ stow */
 
 ## 📦 What's Included
 
-### 🎯 [Neovim](nvim/)
-Modern Neovim setup focused on workflow consistency and intelligent tooling.
+### 🚀 Core Development Environment
+- **[nvim/](nvim/)** - Modern Neovim configuration with mini.nvim ecosystem
+- **[tmux/](tmux/)** - Terminal multiplexer with seamless Neovim integration  
+- **[zsh/](zsh/)** - Enhanced shell with fuzzy history and smart completions
 
-**Key Features:**
-- **Plugin Management**: Lazy.nvim for fast startup
-- **LSP Integration**: Mason + nvim-lspconfig with biome, TypeScript, Lua, C++
-- **Fuzzy Finding**: Mini.pick for unified selection experience
-- **Smart Formatting**: Biome/Prettier with project-aware activation
-- **Security**: Automatic sensitive data censoring with toggle
-- **Theme**: TokyoNight with consistent styling
+### 🖥️ Terminal Emulators
+- **[alacritty/](alacritty/)** - GPU-accelerated terminal emulator
+- **[kitty/](kitty/)** - Feature-rich terminal with advanced capabilities
+- **[ghostty/](ghostty/)** - Modern terminal emulator configuration
 
-**Notable Plugins:**
-- `mini.nvim` - Swiss Army knife of Neovim plugins
-- `blink.cmp` - Fast completion engine
-- `conform.nvim` - Intelligent formatting
-- `noice.nvim` - Enhanced UI messages
+### 🪟 Window Managers & Desktop Environment  
+- **[hyprland/](hyprland/)** - Dynamic tiling Wayland compositor
+- **[laptop-hyperland/](laptop-hyperland/)** - Laptop-specific Hyprland config
+- **[i3/](i3/)** - Classic i3 window manager configuration
+- **[waybar/](waybar/)** - Wayland status bar 
+- **[laptop-waybar/](laptop-waybar/)** - Laptop-specific Waybar config
+- **[picom/](picom/)** - X11 compositor for transparency and effects
 
-### 🖥️ [Tmux](tmux/)
-Terminal multiplexer configuration with seamless Neovim integration.
-
-**Key Features:**
-- **Navigation**: Smart vim-tmux-navigator (bidirectional)
-- **Theme**: TokyoNight matching Neovim
-- **Session Management**: TMS integration for project sessions
-- **Copy Mode**: Vi-style bindings with system clipboard
-- **Status Bar**: Clean, informative status line
-
-**Keybindings:**
-- `Ctrl+Space` - Prefix key
-- `Ctrl+h/j/k/l` - Navigate panes/vim splits
-- `Ctrl+Space + S` - Session switcher
-
-### 🐚 [Zsh](zsh/)
-Enhanced shell experience with powerful history and completion.
-
-**Key Features:**
-- **History**: 50k commands with fuzzy search (Ctrl+R)
-- **Autosuggestions**: Smart suggestions with Ctrl+Y acceptance
-- **Completion**: Enhanced completions with case-insensitivity
-- **Theme**: Starship prompt with git integration
-- **Plugin Manager**: Zinit for fast plugin loading
-
-**Keybindings:**
-- `Ctrl+R` - Fuzzy history search
-- `Ctrl+Y` - Accept autosuggestion (consistent with Neovim)
-- `Ctrl+Alt+R` - History with timestamps
+### 🛠️ Development & System Tools
+- **[starship/](starship/)** - Cross-shell prompt configuration
+- **[lazydocker/](lazydocker/)** - Terminal UI for Docker management
+- **[walker/](walker/)** - Application launcher configuration
 
 ## 🔧 Installation
 
@@ -126,32 +102,7 @@ curl -sS https://starship.rs/install.sh | sh
 
 ## ⚙️ Customization
 
-### Directory Structure
-```
-dotfiles/
-├── nvim/.config/nvim/          # Neovim config
-│   ├── lua/plugins/            # Plugin configurations
-│   ├── init.lua               # Entry point
-│   └── lazy-lock.json         # Plugin versions
-├── tmux/.config/tmux/         # Tmux config
-│   └── tmux.conf             # Main config
-├── zsh/                       # Zsh config
-│   └── .zshrc                # Shell configuration
-└── CHANGELOG.md              # Recent changes
-```
-
-### Key Configuration Files
-
-**Neovim:**
-- [`init.lua`](nvim/.config/nvim/init.lua) - Entry point
-- [`lua/plugins/mini.lua`](nvim/.config/nvim/lua/plugins/mini.lua) - Core functionality
-- [`lua/plugins/comform.lua`](nvim/.config/nvim/lua/plugins/comform.lua) - Formatting setup
-
-**Tmux:**
-- [`tmux.conf`](tmux/.config/tmux/tmux.conf) - Complete tmux config
-
-**Zsh:**
-- [`.zshrc`](zsh/.zshrc) - Shell configuration with history and completion
+Each configuration is organized in its own directory and can be installed independently with stow. Browse the individual directories for specific configuration details.
 
 ## 🎨 Theme
 

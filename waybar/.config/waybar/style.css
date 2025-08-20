@@ -18,8 +18,8 @@
 @define-color primary @fg0;
 
 * {
-  font-size: 12px;
-  font-family: "CaskaydiaMono Nerd Font Mono", "CaskaydiaMono Nerd Font", "Cascadia Mono", monospace;
+  font-size: 14px;
+  font-family: "CaskaydiaMono Nerd Font", "Cascadia Code", monospace;
   font-weight: normal;
 }
 
@@ -35,7 +35,7 @@ window#waybar.empty .modules-center {
 }
 
 .modules-left {
-  padding: 6px 10px;
+  padding: 4px 12px;
   margin: 4px 6px;
   border-radius: 8px;
   background: alpha(@bg1, 0.9);
@@ -43,7 +43,7 @@ window#waybar.empty .modules-center {
 }
 
 .modules-center {
-  padding: 6px 10px;
+  padding: 4px 12px;
   margin: 4px 6px;
   border-radius: 8px;
   background: alpha(@bg1, 0.9);
@@ -51,7 +51,7 @@ window#waybar.empty .modules-center {
 }
 
 .modules-right {
-  padding: 6px 10px;
+  padding: 4px 12px;
   margin: 4px 6px;
   border-radius: 8px;
   background: alpha(@bg1, 0.9);
@@ -74,7 +74,8 @@ tooltip {
 #battery:hover,
 #cpu:hover,
 #memory:hover,
-#temperature:hover {
+#temperature:hover,
+#keyboard-state:hover {
   transition: all .3s ease;
   background-color: alpha(@blue, 0.2);
   border-radius: 6px;
@@ -108,23 +109,22 @@ tooltip {
 }
 
 #workspaces button.active {
-  color: @bg0;
-  background-color: @blue;
+  color: @blue;
   text-shadow: none;
 }
 
 #bluetooth {
-  padding: 0px 5px;
+  padding: 2px 6px;
   transition: all .3s ease;
 }
 
 #network {
-  padding: 0px 5px;
+  padding: 2px 6px;
   transition: all .3s ease;
 }
 
 #battery {
-  padding: 0px 5px;
+  padding: 2px 6px;
   transition: all .3s ease;
 }
 
@@ -148,13 +148,14 @@ tooltip {
 #cpu,
 #memory,
 #pulseaudio,
-#temperature {
-  padding: 0px 8px;
+#temperature,
+#keyboard-state {
+  padding: 2px 8px;
   transition: all .3s ease;
 }
 
 #tray {
-  padding: 0px 5px;
+  padding: 2px 6px;
   transition: all .3s ease;
 }
 

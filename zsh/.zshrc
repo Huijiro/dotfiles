@@ -73,8 +73,8 @@ plugins=(
 
 bindkey -v 
 
-# History
-HISTSIZE=5000
+# History - Enhanced for better searching
+HISTSIZE=50000              # Increased history size
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
@@ -86,6 +86,9 @@ setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
+setopt hist_reduce_blanks    # Remove extra whitespace
+setopt hist_verify          # Show command before executing from history
+setopt inc_append_history   # Add commands immediately, not on exit
 
 # Make completion non case sensitive
 zstyle ':autocomplete:*' default-context history-incremental-search-backward
@@ -114,3 +117,84 @@ esac
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$PATH:/home/huijiro/.local/bin"
+
+# FZF Configuration for command history
+export FZF_DEFAULT_OPTS="--height=40% --layout=reverse --border --margin=1 --padding=1"
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo {} | wl-copy)+abort' --header 'Press ? to toggle preview, Ctrl+Y to copy'"
+
+# Enhanced history search function
+fzf_history() {
+  local selected_command
+  selected_command=$(fc -rl 1 | awk '{$1="";print substr($0,2)}' | fzf --query="$LBUFFER" --no-sort --exact)
+  
+  if [[ -n "$selected_command" ]]; then
+    LBUFFER="$selected_command"
+  fi
+  
+  zle reset-prompt
+}
+
+# Register the widget and bind to Ctrl+R
+zle -N fzf_history
+bindkey '^R' fzf_history
+
+# Alternative: show history with timestamps
+fzf_history_with_time() {
+  local selected_command
+  selected_command=$(fc -il 1 | fzf --query="$LBUFFER" --no-sort --exact --with-nth="4.." --preview-window="down:3:wrap" --preview="echo {4..}" | awk '{for(i=4;i<=NF;i++) printf "%s ", $i; print ""}' | sed 's/[[:space:]]*$//')
+  
+  if [[ -n "$selected_command" ]]; then
+    LBUFFER="$selected_command"
+  fi
+  
+  zle reset-prompt
+}
+
+# Bind to Ctrl+Alt+R for timestamp version
+zle -N fzf_history_with_time  
+bindkey '^[^R' fzf_history_with_time
+
+# Function to search history across all tmux sessions
+fzf_global_history() {
+  local selected_command
+  # Combine current shell history with tmux capture-pane from all sessions
+  {
+    fc -rl 1 | awk '{$1="";print substr($0,2)}'
+    if command -v tmux &> /dev/null && [[ -n "$TMUX" ]]; then
+      tmux list-sessions -F '#S' 2>/dev/null | while read session; do
+        tmux list-windows -t "$session" -F '#I' 2>/dev/null | while read window; do
+          tmux list-panes -t "$session:$window" -F '#P' 2>/dev/null | while read pane; do
+            tmux capture-pane -t "$session:$window.$pane" -p 2>/dev/null | grep -E '^\$' | sed 's/^\$ //'
+          done
+        done
+      done
+    fi
+  } | sort -u | fzf --query="$LBUFFER" --no-sort --exact
+
+  if [[ -n "$selected_command" ]]; then
+    LBUFFER="$selected_command"
+  fi
+  
+  zle reset-prompt
+}
+
+# Bind to Ctrl+Shift+R for global search  
+zle -N fzf_global_history
+bindkey '^[[R' fzf_global_history
+
+# Autosuggestions configuration
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#565f89,bold"  # Match your theme
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)      # Use both history and completion
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=50                 # Limit buffer size for performance
+
+# Accept autosuggestions with Ctrl+Y (like nvim pickers)
+bindkey '^Y' autosuggest-accept
+
+# Additional autosuggestion keybindings
+bindkey '^[f' autosuggest-accept                # Alt+F to accept suggestion
+bindkey '^[w' autosuggest-execute               # Alt+W to accept and execute
+bindkey '^[c' autosuggest-clear                 # Alt+C to clear suggestion
+
+# Additional completion keybindings for consistency
+bindkey '^I' expand-or-complete                 # Tab for completion
+bindkey '^[[Z' reverse-menu-complete            # Shift+Tab for reverse completion

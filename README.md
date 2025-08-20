@@ -106,10 +106,10 @@ Each configuration is organized in its own directory and can be installed indepe
 
 ## 🎨 Theme
 
-Consistent **TokyoNight** theming across configured tools:
+Consistent **TokyoNight** theming across all tools:
 - Neovim: TokyoNight colorscheme
 - Tmux: Custom TokyoNight status bar
-- Shell: Default zsh prompt (Starship config available in starship/)
+- Shell: Starship prompt with matching colors
 
 ## 🔑 Key Workflow Features
 

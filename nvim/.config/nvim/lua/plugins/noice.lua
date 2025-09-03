@@ -51,7 +51,46 @@ return {
     })
   end,
   keys = {
-    { '<leader>fn', "<cmd>:Noice fzf<cr>",                                         desc = "Notifications" },
+    { '<leader>fn', function()
+        local noice = require("noice")
+        local messages = {}
+        
+        -- Get noice message history using the correct API
+        local history = require("noice.message.manager").get(nil, { history = true })
+        
+        for _, message in ipairs(history) do
+          local content = message:content()
+          if content and content ~= "" then
+            table.insert(messages, {
+              text = content,
+              message = message
+            })
+          end
+        end
+        
+        if #messages == 0 then
+          vim.notify("No notifications found", vim.log.levels.INFO)
+          return
+        end
+        
+        require('mini.pick').start({
+          source = {
+            items = messages,
+            name = "Notifications",
+            choose = function(item)
+              if item and item.text then
+                -- Show full message in a split
+                vim.cmd('split')
+                local buf = vim.api.nvim_create_buf(false, true)
+                vim.api.nvim_win_set_buf(0, buf)
+                vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(item.text, '\n'))
+                vim.bo[buf].filetype = 'text'
+                vim.bo[buf].modifiable = false
+              end
+            end
+          }
+        })
+      end, desc = "Notifications" },
     { "<S-Enter>",  function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c",                     desc = "Redirect Cmdline" },
     { '<leader>n',  '<cmd>:Noice dismiss<cr>',                                     desc = "Dismiss Noitifications" }
   }

@@ -9,6 +9,18 @@ Modifications made:
 - Simplified mapSymbols function to use if/else logic instead of table lookup
 - Made ignored files appear dimmed using Comment highlight group
 - Restructured code for better readability
+
+Highlight groups used:
+- MiniDiffSignAdd: Green (for added files)
+- MiniDiffSignChange: Yellow/Orange (for modified files)
+- MiniDiffSignDelete: Red (for deleted/untracked files)
+- Comment: Gray/Dimmed (for ignored files)
+- MiniDiffSignDelete: Red (for symlinks)
+
+To customize colors, add to your config:
+vim.api.nvim_set_hl(0, 'MiniDiffSignAdd', { fg = '#00ff00' })
+vim.api.nvim_set_hl(0, 'MiniDiffSignChange', { fg = '#ffff00' })
+vim.api.nvim_set_hl(0, 'MiniDiffSignDelete', { fg = '#ff0000' })
 --]]
 
 local nsMiniFiles = vim.api.nvim_create_namespace("mini_files_git")
@@ -30,28 +42,27 @@ end
 ---@return string symbol, string hlGroup
 local function mapSymbols(status, is_symlink)
   -- Git status to highlight group mapping
-  local gitHlGroup = "NonText" -- default
-  
+  local gitHlGroup = "NonText"        -- default
   if status == " M" or status == "M " or status == "MM" then
     gitHlGroup = "MiniDiffSignChange" -- Modified
   elseif status == "A " or status == "AA" then
-    gitHlGroup = "MiniDiffSignAdd" -- Added
+    gitHlGroup = "MiniDiffSignAdd"    -- Added
   elseif status == "D " then
-    gitHlGroup = "MiniDiffSignDelete" -- Deleted  
+    gitHlGroup = "MiniDiffSignDelete" -- Deleted
   elseif status == "AM" or status == "AD" or status == "R " or status == "U " then
     gitHlGroup = "MiniDiffSignChange" -- Modified/Renamed/Unmerged
   elseif status == "UU" or status == "UA" then
-    gitHlGroup = "MiniDiffSignAdd" -- Unmerged
+    gitHlGroup = "MiniDiffSignAdd"    -- Unmerged
   elseif status == "??" then
     gitHlGroup = "MiniDiffSignDelete" -- Untracked
   elseif status == "!!" then
-    gitHlGroup = "Comment" -- Ignored (dimmed)
+    gitHlGroup = "Comment"            -- Ignored (dimmed)
   end
 
   -- Only show symbol for symlinks
   local symbol = is_symlink and "↩" or ""
-  
-  -- Use symlink highlight if it's a symlink, otherwise use git status highlight  
+
+  -- Use symlink highlight if it's a symlink, otherwise use git status highlight
   local hlGroup = is_symlink and "MiniDiffSignDelete" or gitHlGroup
 
   return symbol, hlGroup
@@ -122,7 +133,6 @@ local function updateMiniWithGit(buf_id, gitStatusMap)
             }
           )
         end
-
       else
       end
     end
@@ -176,8 +186,8 @@ local function updateGitStatus(buf_id)
   local currentTime = os.time()
 
   if
-    gitStatusCache[cwd]
-    and currentTime - gitStatusCache[cwd].time < cacheTimeout
+      gitStatusCache[cwd]
+      and currentTime - gitStatusCache[cwd].time < cacheTimeout
   then
     updateMiniWithGit(buf_id, gitStatusCache[cwd].statusMap)
   else

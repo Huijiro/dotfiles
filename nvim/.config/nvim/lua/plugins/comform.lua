@@ -7,7 +7,7 @@ return {
       formatters_by_ft = {
         javascript = { "biome", "prettier" },
         jsonc = { "prettier" },
-        json = { "prettier" },
+        json = { "biome", "prettier" },
         typescriptreact = { "biome", "prettier" },
         htmlangular = { "prettier" },
         html = { "prettier" },

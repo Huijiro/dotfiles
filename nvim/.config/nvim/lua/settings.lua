@@ -52,3 +52,9 @@ vim.opt.guicursor = ""
 
 -- Disable line wrap
 vim.opt.wrap = false
+
+-- Fix git diff
+vim.o.diffopt = "internal,filler,closeoff,linematch:40"
+
+-- Set autoread
+vim.o.autoread = true

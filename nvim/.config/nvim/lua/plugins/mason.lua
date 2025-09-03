@@ -25,6 +25,16 @@ return {
         single_file_support = false,
       })
 
+      -- Configure diagnostics to show source
+      vim.diagnostic.config({
+        float = {
+          source = true,  -- Show diagnostic source in float
+        },
+        virtual_text = {
+          source = true,  -- Show diagnostic source in virtual text
+        },
+      })
+
       vim.keymap.set('n', 'J', vim.diagnostic.open_float)
 
       vim.api.nvim_create_autocmd('LspAttach', {

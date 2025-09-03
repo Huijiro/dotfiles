@@ -12,16 +12,31 @@ return {
         enable_events = true
       }
     },
+    {
+      "huijiro/blink-cmp-supermaven",
+      dependencies = {
+        "supermaven-inc/supermaven-nvim",
+        opts = {
+          disable_inline_completion = true, -- disables inline completion for use with cmp
+          disable_keymaps = true            -- disables built in keymaps for more manual control
+        }
+      }
+    }
   },
   opts = {
     snippets = { preset = "luasnip" },
     sources = {
-      default = { "lsp", 'path', "snippets", 'buffer' },
+      default = { "lsp", 'supermaven', 'path', "snippets", 'buffer' },
       providers = {
         lsp = {
           score_offset = 10,
           module = "blink.cmp.sources.lsp",
         },
+        supermaven = {
+          name = 'supermaven',
+          module = 'blink-cmp-supermaven',
+          async = true
+        }
       }
     },
     fuzzy = { implementation = "lua" },

@@ -13,21 +13,31 @@ return {
           synchronize = "w"
         }
       })
+      require('minifiles-git')
       require('mini.pick').setup({
         window = {
-          config = {
-            relative = 'cursor',
-            border = 'rounded',
-            width = 60,
-            height = 15,
-            row = 1,
-            col = 0,
-          },
+          config = function()
+            local height = math.floor(0.8 * vim.o.lines)
+            local width = math.floor(0.9 * vim.o.columns)
+            return {
+              anchor = 'NW',
+              height = height,
+              width = width,
+              row = math.floor(0.5 * (vim.o.lines - height)),
+              col = math.floor(0.5 * (vim.o.columns - width)),
+            }
+          end,
           prompt_caret = '❯ ',
           prompt_prefix = '',
         },
         options = {
           content_from_bottom = true,
+          use_cache = true,
+        },
+        mappings = {
+          scroll_down = '<C-f>',
+          scroll_up = '<C-b>',
+          toggle_preview = '<Tab>',
         }
       })
       vim.ui.select = MiniPick.ui_select
@@ -148,7 +158,11 @@ return {
       },
       {
         "<leader>fg",
-        function() require('mini.pick').builtin.grep_live() end,
+        function() 
+          require('mini.pick').builtin.grep_live({}, {
+            source = { preview = require('mini.pick').default_preview }
+          })
+        end,
         desc = "Find grep"
       },
       {

@@ -19,6 +19,7 @@ return {
       { "<leader>q",  ":q<cr>",                desc = "Quit" },
       { "<leader>Q",  ":q!<cr>",               desc = "Force Quit" },
       { "<leader>r",  ":edit<cr>",             desc = "Reload File" },
+      { "<leader>R",  ":e!<cr>",               desc = "Force Reload File" },
       { "<leader>b",  group = "Buffers" },
       { "<leader>bh", ":bprev<cr>",            desc = "Previous Buffer" },
       { "<leader>bl", ":bnext<cr>",            desc = "Next Buffer" },

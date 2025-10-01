@@ -62,10 +62,7 @@ local function mapSymbols(status, is_symlink)
   -- Only show symbol for symlinks
   local symbol = is_symlink and "↩" or ""
 
-  -- Use symlink highlight if it's a symlink, otherwise use git status highlight
-  local hlGroup = is_symlink and "MiniDiffSignDelete" or gitHlGroup
-
-  return symbol, hlGroup
+  return symbol, gitHlGroup
 end
 
 ---@param cwd string

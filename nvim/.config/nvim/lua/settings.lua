@@ -58,3 +58,10 @@ vim.o.diffopt = "internal,filler,closeoff,linematch:40"
 
 -- Set autoread
 vim.o.autoread = true
+
+-- Add support for .env, .env.local, .env.example etc.
+vim.filetype.add({
+  pattern = {
+    [".*%.env.*"] = "sh", -- or "dotenv" if you have a plugin for it
+  },
+})

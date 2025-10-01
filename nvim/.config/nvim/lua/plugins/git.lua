@@ -19,21 +19,16 @@ return {
   {
     "NeogitOrg/neogit",
     dependencies = {
-      {
-        "sindrets/diffview.nvim",
-        config = function()
-          require('diffview').setup({
-            view = {
-              file_panel = {
-                listing_styles = "list"
-              }
-            }
-          })
-        end
-      },
-      "nvim-lua/plenary.nvim", -- required
+      "nvim-lua/plenary.nvim",
     },
-    config = true,
+    config = function()
+      require('neogit').setup({
+        integrations = {
+          diffview = false,
+          mini_pick = true,
+        },
+      })
+    end,
     keys = {
       { "<leader>g", function() require('neogit').open({ kind = "split" }) end, desc = "Open Neogit" },
     }

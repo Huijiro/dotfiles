@@ -1,21 +1,9 @@
 return {
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000,
-    config = function()
-      require("catppuccin").setup({
-        flavour = "mocha",
-        transparent_background = true,
-        term_colors = false,
-      })
-    end
-  },
-  {
     "folke/tokyonight.nvim",
     name = "tokyonight",
+    lazy = false,
     priority = 1000,
-    opts = {},
     config = function()
       require("tokyonight").setup({
         style = "storm",
@@ -24,8 +12,10 @@ return {
           floats = "transparent",
         },
         transparent = true,
+        on_colors = function(colors) end,
+        on_highlights = function(hl) end,
       })
-      vim.cmd [[colorscheme tokyonight]]
+      vim.cmd([[colorscheme tokyonight]])
     end
   }
 }

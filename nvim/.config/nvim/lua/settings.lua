@@ -44,9 +44,6 @@ vim.wo.signcolumn = 'yes'
 vim.o.updatetime = 50
 vim.o.timeoutlen = 300
 
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
-
 -- Keep cursor fat
 vim.opt.guicursor = ""
 

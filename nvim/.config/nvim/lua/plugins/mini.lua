@@ -7,7 +7,6 @@ return {
       require('mini.ai').setup { n_lines = 500 }
       require('mini.surround').setup()
       require('mini.icons').setup()
-      require('mini.extra').setup()
       require('mini.files').setup({
         mappings = {
           synchronize = "w"
@@ -150,36 +149,11 @@ return {
         end,
         desc = "Open current working directory"
       },
-      -- Mini.pick keybindings replacing fzf-lua
-      {
-        "<leader>ff",
-        function() require('mini.pick').builtin.files() end,
-        desc = "Find files"
-      },
-      {
-        "<leader>fg",
-        function() 
-          require('mini.pick').builtin.grep_live({}, {
-            source = { preview = require('mini.pick').default_preview }
-          })
-        end,
-        desc = "Find grep"
-      },
-      {
-        "<leader>fb",
-        function() require('mini.pick').builtin.buffers() end,
-        desc = "Find buffers"
-      },
-      {
-        "<C-S-c>",
-        function() require('mini.extra').pickers.lsp({ scope = 'code_action' }) end,
-        desc = "Code actions"
-      },
       {
         "<leader>tc",
         ":ToggleCensor<CR>",
         desc = "Toggle censoring"
-      }
+      },
     }
   },
   {

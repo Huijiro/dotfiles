@@ -17,20 +17,5 @@ return {
         sync_install = false,
       }
     end,
-  },
-  {
-   "folke/lazydev.nvim",
-    ft = "lua", -- only load on lua files
-  },
-  {
-    "windwp/nvim-ts-autotag",
-    config = function()
-      require("nvim-ts-autotag").setup()
-    end
-  },
-  {
-    "davidmh/mdx.nvim",
-    config = true,
-    dependencies = { "nvim-treesitter/nvim-treesitter" }
   }
 }

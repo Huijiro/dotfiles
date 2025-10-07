@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 vim.keymap.set('n', 'Q', '<nop>')
 vim.keymap.set('n', 'U', '<C-r>')
 vim.keymap.set('n', 'H', '^')

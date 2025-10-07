@@ -12,7 +12,6 @@ return {
           synchronize = "w"
         }
       })
-      require('minifiles-git')
       require('mini.pick').setup({
         window = {
           config = function()

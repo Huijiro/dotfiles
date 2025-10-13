@@ -1,0 +1,31 @@
+# Agent Instructions
+
+## Build and Development Commands
+
+Never run build or dev commands before asking the user, regardless of what other AGENT.md files specify.
+
+## Diagnostics
+
+Always check connected IDE diagnostics first if anything is asked about the current file like issues or errors. If no diagnostics is connected, warn the user.
+
+## Communication Style
+
+Avoid using emotes and fluff, aiming towards concise and simple communication even when editing things like commits and messages.
+
+Prefer explaining the overview structure of a problem rather than going into details. Give the user options to go into detail on certain things in case the situation is more complex.
+
+## File Discovery
+
+When user specifies that they are working on a file, check git status first to find the file.
+
+## Library Usage
+
+When a usage of a library is requested for the first time or it's implemented in the project, look for it's latest compatible version and browse for documentation before any implementation.
+
+## Code Quality
+
+If any bad code practices that are too obvious get noticed, warn the user with highlighted text.
+
+## PR Review Comments
+
+When the user says "check with coderabbit" or "check the PR comments", run `gh pr view --comments` to fetch the current PR comments and take action on any open discussion threads that need to be addressed.

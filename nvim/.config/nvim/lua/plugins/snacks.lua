@@ -1,7 +1,7 @@
 return {
   "folke/snacks.nvim",
   lazy = false,
-  priority = 1000,
+  priority = 10000,
   --- @type snacks.Config
   opts = {
     notifier = { enabled = true },
@@ -25,11 +25,6 @@ return {
       end
     else
       vim.print = _G.dd
-    end
-
-    -- Override vim.ui.input to use snacks input
-    vim.ui.input = function(opts, on_confirm)
-      return Snacks.input(opts, on_confirm)
     end
 
     ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
@@ -78,18 +73,6 @@ return {
     })
   end,
   keys = {
-    {
-      ':',
-      function()
-        vim.ui.input({ prompt = ':', completion = 'cmdline' }, function(input)
-          if input then
-            vim.cmd(input)
-          end
-        end)
-      end,
-      desc = "Command line",
-      mode = { 'n', 'v' }
-    },
     {
       'gi',
       function() require('snacks').picker.lsp_implementations() end,

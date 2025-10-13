@@ -19,6 +19,7 @@ return {
       },
       formatters = {
         biome = {
+          args = { "check", "--write", "--unsafe", "--stdin-file-path", "$FILENAME" },
           condition = function(_, ctx)
             local root = vim.fs.find({ "biome.json", "biome.jsonc" }, {
               upward = true,

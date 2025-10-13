@@ -53,8 +53,16 @@ vim.opt.wrap = false
 -- Fix git diff
 vim.o.diffopt = "internal,filler,closeoff,linematch:40"
 
--- Set autoread
+-- Set autoread and trigger on focus/buffer enter
 vim.o.autoread = true
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  pattern = "*",
+  callback = function()
+    if vim.fn.mode() ~= 'c' then
+      vim.cmd('checktime')
+    end
+  end,
+})
 
 -- Add support for .env, .env.local, .env.example etc.
 vim.filetype.add({

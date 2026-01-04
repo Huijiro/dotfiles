@@ -3,7 +3,7 @@ TERM=xterm-256color
 export GOPATH=$HOME/go
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/Apps:/var/lib/flatpak/exports/bin:/opt/nvim/:$GOPATH/bin:/home/huijiro/.dotnet/tools:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/Apps:/var/lib/flatpak/exports/bin:/opt/nvim/:$GOPATH/bin:$HOME/.dotnet/tools:$HOME/.local/share/bob/nvim-bin:$PATH
 
 export EDITOR="nvim"
 
@@ -102,6 +102,9 @@ esac
 
 # bun completions
 [ -s "/home/huijiro/.bun/_bun" ] && source "/home/huijiro/.bun/_bun"
+
+#zoxide
+eval "$(zoxide init zsh)"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"

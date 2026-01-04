@@ -1,5 +1,4 @@
 require("config.lazy")
-require("tmux")
 require("settings")
 require("keymaps")
 require("lsp")

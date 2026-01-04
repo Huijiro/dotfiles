@@ -1,113 +1,93 @@
-/* TokyoNight colors */
-@define-color bg0 #1a1b26;
-@define-color bg1 #16161e;
-@define-color bg2 #24283b;
-@define-color bg3 #414868;
-@define-color fg0 #c0caf5;
-@define-color fg1 #a9b1d6;
-@define-color fg2 #9aa5ce;
-@define-color blue #7aa2f7;
-@define-color blue1 #2ac3de;
-@define-color purple #bb9af7;
-@define-color magenta #c678dd;
-@define-color red #f7768e;
-@define-color orange #ff9e64;
-@define-color yellow #e0af68;
-@define-color green #9ece6a;
-@define-color teal #73daca;
+/* Light Colors */
+@define-color seasalt #f8f9fA;
+@define-color platinum #e1e2e4;
+@define-color platinum2 #d2d5d8;
+@define-color french-gray #b2b6ba;
+@define-color dim-gray #696e71;
+
+/* Dark Colors */
+@define-color night #111111;
+@define-color eerie-black #232323;
+@define-color jet #343434;
+@define-color outer-space #464646;
+@define-color davy-gray #575757;
+
+
+* {
+  font-size: 16px;
+  font-family: "CaskaydiaMono Nerd Font", "Cascadia Code", monospace;
+  font-weight: normal;
+}
 
 window {
-    margin: 0px;
-    border: 2px solid @blue;
-    border-radius: 12px;
-    background-color: @bg0;
-    color: @fg0;
-    font-family: "CaskaydiaMono Nerd Font", "JetBrainsMono Nerd Font", monospace;
-    font-size: 14px;
+  border-radius: 0.25rem;
+  background-color: alpha(@night, 0.8);
 }
 
 #input {
-    margin: 8px;
-    padding: 12px;
-    border: 2px solid @bg3;
-    border-radius: 8px;
-    background-color: @bg1;
-    color: @fg0;
-    font-size: 16px;
-    font-weight: bold;
+  background-color: alpha(@seasalt, 0.2);
+  border-radius: 0px;
 }
 
 #input:focus {
-    border: 2px solid @blue;
-    outline: none;
-}
-
-#inner-box {
-    margin: 8px;
-    border: none;
-    background-color: transparent;
-}
-
-#outer-box {
-    margin: 0px;
-    border: none;
-    background-color: transparent;
+  background-color: alpha(@seasalt, 0.4);
+  outline: none;
 }
 
 #scroll {
-    margin: 0px;
-    border: none;
+  margin: 0px;
+  border: none;
 }
 
 #text {
-    margin: 8px;
-    padding: 4px;
-    color: @fg0;
-    font-weight: normal;
+  margin: 8px;
+  padding: 4px;
+  color: @fg0;
+  font-weight: normal;
 }
 
 #entry {
-    padding: 8px;
-    margin: 2px;
-    border-radius: 8px;
-    background-color: transparent;
-    transition: all 0.2s ease;
+  padding: 8px;
+  margin: 2px;
+  border-radius: 8px;
+  background-color: transparent;
+  transition: all 0.2s ease;
 }
 
 #entry:selected {
-    background-color: @bg2;
-    border: 1px solid @blue;
-    color: @blue;
+  background-color: @bg2;
+  border: 1px solid @blue;
+  color: @blue;
 }
 
 #entry:hover {
-    background-color: @bg3;
-    color: @fg0;
+  background-color: @bg3;
+  color: @fg0;
 }
 
 #entry:selected #text {
-    color: @blue;
-    font-weight: bold;
+  color: @blue;
+  font-weight: bold;
 }
 
 #entry:hover #text {
-    color: @fg0;
+  color: @fg0;
 }
 
 #entry #text {
-    color: @fg1;
+  color: @fg1;
 }
 
 /* Icon styling */
 #img {
-    margin-right: 12px;
-    opacity: 0.8;
+  margin-right: 12px;
+  opacity: 0.8;
 }
 
 #entry:selected #img {
-    opacity: 1.0;
+  opacity: 1.0;
 }
 
 #entry:hover #img {
-    opacity: 0.9;
+  opacity: 0.9;
 }

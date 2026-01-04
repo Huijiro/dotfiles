@@ -1,69 +1,43 @@
-/* TokyoNight colors */
-@define-color bg0 #1a1b26;
-@define-color bg1 #16161e;
-@define-color bg2 #24283b;
-@define-color bg3 #414868;
-@define-color fg0 #c0caf5;
-@define-color fg1 #a9b1d6;
-@define-color blue #7aa2f7;
-@define-color blue1 #2ac3de;
-@define-color purple #bb9af7;
-@define-color red #f7768e;
-@define-color orange #ff9e64;
-@define-color yellow #e0af68;
-@define-color green #9ece6a;
-@define-color teal #73daca;
+/* Light Colors */
+@define-color seasalt #f8f9fA;
+@define-color platinum #e1e2e4;
+@define-color platinum2 #d2d5d8;
+@define-color french-gray #b2b6ba;
+@define-color dim-gray #696e71;
 
-@define-color background @bg2;
-@define-color primary @fg0;
+/* Dark Colors */
+@define-color night #111111;
+@define-color eerie-black #232323;
+@define-color jet #343434;
+@define-color outer-space #464646;
+@define-color davy-gray #575757;
 
 * {
-  font-size: 14px;
+  font-size: 16px;
   font-family: "CaskaydiaMono Nerd Font", "Cascadia Code", monospace;
   font-weight: normal;
 }
 
 window#waybar {
-  all: unset;
-  background-color: alpha(@bg0, 0.9);
-  color: @fg0;
-  border-radius: 0px;
+  background-color: transparent;
+  color: @seasalt;
 }
 
 window#waybar.empty .modules-center {
   background-color: transparent;
 }
 
-.modules-left {
-  padding: 4px 12px;
-  margin: 4px 6px;
-  border-radius: 8px;
-  background: alpha(@bg1, 0.9);
-  border: 1px solid alpha(@bg3, 0.5);
-}
-
-.modules-center {
-  padding: 4px 12px;
-  margin: 4px 6px;
-  border-radius: 8px;
-  background: alpha(@bg1, 0.9);
-  border: 1px solid alpha(@bg3, 0.5);
-}
-
-.modules-right {
-  padding: 4px 12px;
-  margin: 4px 6px;
-  border-radius: 8px;
-  background: alpha(@bg1, 0.9);
-  border: 1px solid alpha(@bg3, 0.5);
+.module {
+  margin: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background: alpha(@night, 0.7);
 }
 
 tooltip {
-  background: @bg1;
-  color: @fg0;
-  border: 1px solid @blue;
-  border-radius: 8px;
-  padding: 8px;
+  background: @night;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  border: none;
 }
 
 #clock:hover,
@@ -81,81 +55,34 @@ tooltip {
   border-radius: 6px;
 }
 
-
 #clock {
-  padding: 0px 5px;
+  padding: 0.25rem 0.5rem;
   transition: all .3s ease;
 }
 
 #workspaces {
-  padding: 0px 5px;
+  padding: 0.25rem 0.5rem;
 }
 
 #workspaces button {
   all: unset;
-  padding: 4px 8px;
-  margin: 2px;
-  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
   transition: all .2s ease;
-  color: @fg1;
+  color: alpha(@platinum, 0.5);
   background-color: transparent;
 }
 
-#workspaces button:hover {
-  color: @blue;
-  background-color: alpha(@blue, 0.2);
-  text-shadow: none;
-  transition: all .2s ease;
-}
-
 #workspaces button.active {
-  color: @blue;
-  text-shadow: none;
-}
-
-#bluetooth {
-  padding: 2px 6px;
-  transition: all .3s ease;
-}
-
-#network {
-  padding: 2px 6px;
-  transition: all .3s ease;
-}
-
-#battery {
-  padding: 2px 6px;
-  transition: all .3s ease;
-}
-
-#battery.charging {
-  color: @green;
-}
-
-#battery.warning:not(.charging) {
-  color: @yellow;
-}
-
-#battery.critical:not(.charging) {
-  color: @red;
-  animation-name: blink;
-  animation-duration: 0.5s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+  color: @platinum;
 }
 
 #cpu,
 #memory,
 #pulseaudio,
 #temperature,
-#keyboard-state {
-  padding: 2px 8px;
-  transition: all .3s ease;
-}
-
+#keyboard-state,
 #tray {
-  padding: 2px 6px;
+  padding: 0.25rem 0.5rem;
   transition: all .3s ease;
 }
 

@@ -6,6 +6,8 @@ vim.lsp.enable("tailwindcss")
 vim.lsp.enable("jsonls")
 vim.lsp.enable("svelte")
 vim.lsp.enable("cssls")
+vim.lsp.enable("html")
+vim.lsp.enable("pyright")
 
 vim.keymap.set('n', 'K', vim.lsp.buf.hover)
 vim.keymap.set('n', 'J', vim.diagnostic.open_float)

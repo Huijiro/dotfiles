@@ -1,52 +1,35 @@
 {
   "layer": "top",
-  "height": 24,
   "output": "DP-2",
+  "reload_style_on_change": true,
   "modules-left": [
-    "hyprland/workspaces",
-    "tray"
-  ],
-  "modules-center": [
+    "tray",
     "hyprland/window"
   ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
   "modules-right": [
-    "cpu",
-    "memory",
     "pulseaudio",
+    "bluetooth",
     "clock"
   ],
   "hyprland/workspaces": {
     "all-outputs": true,
-    "format": "",
+    "format": "{icon}",
+    "format-icons": {
+      "default": "",
+      "active": ""
+    },
     "on-click": "hyprctl dispatch workspace {index}"
   },
-  "cpu": {
-    "interval": 1,
+  "bluetooth": {
     "format": "{icon}",
-    "format-icons": [
-      "<span color='#69ff94'></span>", // green
-      "<span color='#2aa9ff'></span>", // blue
-      "<span color='#f8f8f2'></span>", // white
-      "<span color='#f8f8f2'></span>", // white
-      "<span color='#ffffa5'></span>", // yellow
-      "<span color='#ffffa5'></span>", // yellow
-      "<span color='#ff9977'></span>", // orange
-      "<span color='#dd532e'></span>" // red
-    ]
-  },
-  "memory": {
-    "interval": 1,
-    "format": "{icon}",
-    "format-icons": [
-      "<span color='#69ff94'></span>", // green
-      "<span color='#2aa9ff'></span>", // blue
-      "<span color='#f8f8f2'></span>", // white
-      "<span color='#f8f8f2'></span>", // white
-      "<span color='#ffffa5'></span>", // yellow
-      "<span color='#ffffa5'></span>", // yellow
-      "<span color='#ff9977'></span>", // orange
-      "<span color='#dd532e'></span>" // red
-    ]
+    "format-icons": {
+      "default": "",
+      "connected": ""
+    },
+    "on-click": "blueberry"
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
@@ -56,7 +39,7 @@
       "alsa_output.pci-0000_00_1f.3.analog-stereo-muted": "",
       "headphone": "",
       "hands-free": "",
-      "headset": "",
+      "headset": "",
       "phone": "",
       "phone-muted": "",
       "portable": "",

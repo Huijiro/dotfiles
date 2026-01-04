@@ -5,29 +5,14 @@ return {
     local comform = require('conform')
     comform.setup({
       formatters_by_ft = {
-        javascript = { "biome", "prettier" },
-        jsonc = { "prettier" },
-        json = { "biome", "prettier" },
-        typescriptreact = { "biome", "prettier" },
-        htmlangular = { "prettier" },
-        html = { "prettier" },
-        typescript = { "biome", "prettier" },
-        markdown = { "prettier" },
+        javascript = { "biome" },
+        json = { "biome" },
+        typescriptreact = { "biome" },
+        typescript = { "biome" },
         cpp = { "clang-format" },
         python = { "black" },
-        rust = { lsp_format = "fallback" },
       },
       formatters = {
-        biome = {
-          args = { "check", "--write", "--unsafe", "--stdin-file-path", "$FILENAME" },
-          condition = function(_, ctx)
-            local root = vim.fs.find({ "biome.json", "biome.jsonc" }, {
-              upward = true,
-              path = ctx.dirname
-            })[1]
-            return root ~= nil
-          end,
-        },
         prettier = {
           condition = function(_, ctx)
             local root = vim.fs.find({

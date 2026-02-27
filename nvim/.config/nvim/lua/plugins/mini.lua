@@ -200,10 +200,19 @@ return {
         function()
           local files = require("mini.files")
           local buf = vim.api.nvim_buf_get_name(0)
-          if buf:match("ministarter") then
+          if buf == "" or buf:match("ministarter") then
             files.open()
+          elseif vim.fn.filereadable(buf) == 1 then
+            files.open(buf)
+            files.reveal_cwd()
           else
-            files.open(vim.api.nvim_buf_get_name(0))
+            -- File no longer exists, open its parent directory instead
+            local dir = vim.fn.fnamemodify(buf, ":h")
+            if vim.fn.isdirectory(dir) == 1 then
+              files.open(dir)
+            else
+              files.open()
+            end
             files.reveal_cwd()
           end
         end,

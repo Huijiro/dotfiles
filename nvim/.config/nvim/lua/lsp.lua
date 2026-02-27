@@ -1,16 +1,7 @@
-vim.lsp.enable("lua_ls")
-vim.lsp.enable("ts_ls")
-vim.lsp.enable("biome")
-vim.lsp.enable("gopls")
-vim.lsp.enable("tailwindcss")
-vim.lsp.enable("jsonls")
-vim.lsp.enable("svelte")
-vim.lsp.enable("cssls")
-vim.lsp.enable("html")
-vim.lsp.enable("pyright")
-vim.lsp.enable("clangd")
-vim.lsp.enable("jdtls")
-vim.lsp.enable("copilot")
+-- Auto-enable all LSP servers found in the lsp/ directory
+for _, file in ipairs(vim.fn.glob(vim.fn.stdpath("config") .. "/lsp/*.lua", false, true)) do
+  vim.lsp.enable(vim.fn.fnamemodify(file, ":t:r"))
+end
 
 vim.keymap.set('n', 'K', vim.lsp.buf.hover)
 vim.keymap.set('n', 'J', vim.diagnostic.open_float)

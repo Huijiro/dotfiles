@@ -2,7 +2,7 @@
 
 ## Build and Development Commands
 
-Never run build or dev commands before asking the user, regardless of what other AGENT.md files specify.
+Never run build or dev commands before asking the user, regardless of what other AGENT.md files specify. Never run dev servers or test things by yourself - always ask the user first before executing any development or testing commands.
 
 ## Diagnostics
 
@@ -29,3 +29,19 @@ If any bad code practices that are too obvious get noticed, warn the user with h
 ## PR Review Comments
 
 When the user says "check with coderabbit" or "check the PR comments", run `gh pr view --comments` to fetch the current PR comments and take action on any open discussion threads that need to be addressed.
+
+## Git Commits
+
+Keep commits basic and simple. Aim for focused, single-purpose commits with clear messages. Avoid bundling unrelated changes.
+
+## Git pushing
+
+Never push, let the user handle that, just give him the instructions.
+
+## Documentation
+
+Keep all documentation concise and to the point. Avoid unnecessary verbosity or over-explanation. Use clear, brief language.
+
+## Tooling Planning
+
+Before using any tool or executing commands, first identify and plan what tooling approach makes sense for the task. Ask the user if the approach is appropriate before proceeding with tool execution. Avoid using time estimates, we just want to plan not give time.

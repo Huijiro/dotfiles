@@ -10,20 +10,18 @@ return {
     wk.add({
       { "<leader>f",  group = "Find" },
       { "<leader>t",  group = "Terminal" },
-      { "<leader>h",  group = "Harpoon" },
-      { "<leader>o",  group = "Optional Tools" },
       { "<leader>d",  group = "Debug" },
       { "<leader>x",  group = "Trouble" },
-      { "<leader>a",  group = "Avante" },
-      { "<leader>w",  ":w<cr>",                desc = "Save" },
-      { "<leader>q",  ":q<cr>",                desc = "Quit" },
-      { "<leader>Q",  ":q!<cr>",               desc = "Force Quit" },
-      { "<leader>r",  ":edit<cr>",             desc = "Reload File" },
-      { "<leader>R",  ":e!<cr>",               desc = "Force Reload File" },
+      { "<leader>a",  group = "Agentic" },
+      { "<leader>w",  ":w<cr>",          desc = "Save" },
+      { "<leader>q",  ":q<cr>",          desc = "Quit" },
+      { "<leader>Q",  ":q!<cr>",         desc = "Force Quit" },
+      { "<leader>r",  ":edit<cr>",       desc = "Reload File" },
+      { "<leader>R",  ":e!<cr>",         desc = "Force Reload File" },
       { "<leader>b",  group = "Buffers" },
-      { "<leader>bh", ":bprev<cr>",            desc = "Previous Buffer" },
-      { "<leader>bl", ":bnext<cr>",            desc = "Next Buffer" },
-      { "<leader>bc", ":bdelete<cr>",          desc = "Close Buffer" }
+      { "<leader>bh", ":bprev<cr>",      desc = "Previous Buffer" },
+      { "<leader>bl", ":bnext<cr>",      desc = "Next Buffer" },
+      { "<leader>bc", ":bdelete<cr>",    desc = "Close Buffer" }
     })
   end,
 }

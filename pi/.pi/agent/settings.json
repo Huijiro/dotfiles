@@ -14,7 +14,7 @@
   "enabledModels": [
     "claude-*"
   ],
-  "lastChangelogVersion": "0.55.1",
+  "lastChangelogVersion": "0.55.2",
   "packages": [
     "npm:@juanibiapina/pi-extension-settings",
     "npm:@juanibiapina/pi-plan"

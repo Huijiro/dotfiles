@@ -1,6 +1,6 @@
 ---
 name: frontend-design
-description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.
+description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build functional web components, pages, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics. Do NOT use for explanatory diagrams, architecture overviews, diff reviews, or data tables (use visual-explainer instead). Do NOT use for complex multi-component claude.ai artifacts with React state management, routing, or shadcn/ui (use web-artifacts-builder instead).
 license: Complete terms in LICENSE.txt
 ---
 

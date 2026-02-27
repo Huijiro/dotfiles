@@ -1,0 +1,28 @@
+{
+  "cursorUp": ["alt+k"],
+  "cursorDown": ["alt+j"],
+  "cursorLeft": ["alt+h", "ctrl+b"],
+  "cursorRight": ["alt+l", "ctrl+f"],
+  "cursorWordLeft": ["alt+b"],
+  "cursorWordRight": ["alt+w"],
+  "cursorLineStart": ["ctrl+a", "alt+0"],
+  "cursorLineEnd": ["ctrl+e", "alt+$"],
+  "pageUp": ["alt+u"],
+  "pageDown": ["alt+d"],
+
+  "deleteWordBackward": ["ctrl+w", "alt+backspace"],
+  "deleteWordForward": ["alt+delete"],
+  "deleteToLineStart": ["ctrl+u"],
+  "deleteToLineEnd": ["ctrl+k"],
+
+  "selectUp": ["alt+k"],
+  "selectDown": ["alt+j"],
+  "selectPageUp": ["alt+u"],
+  "selectPageDown": ["alt+d"],
+
+  "newSession": ["ctrl+alt+n"],
+  "tree": ["ctrl+alt+t"],
+  "resume": ["ctrl+alt+r"],
+
+  "tab": []
+}

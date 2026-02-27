@@ -2,11 +2,20 @@ return {
   "folke/sidekick.nvim",
   opts = {
     -- add any options here
+    nes = { enabled = false },
     cli = {
       mux = {
-        backend = "opencode",
+        backend = "pi",
         enabled = true,
       },
+      tools = {
+        pi = {
+          cmd = { "pi" },
+          keys = {
+            submit = { "<c-s>", function(t) t:send("\n") end }
+          }
+        }
+      }
     },
   },
   keys = {
@@ -66,12 +75,6 @@ return {
       function() require("sidekick.cli").prompt() end,
       mode = { "n", "x" },
       desc = "Sidekick Select Prompt",
-    },
-    -- Example of a keybinding to open Claude directly
-    {
-      "<leader>ac",
-      function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end,
-      desc = "Sidekick Toggle Claude",
     },
   },
 }

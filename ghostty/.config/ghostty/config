@@ -37,3 +37,6 @@ maximize = true
 # Settings
 copy-on-select = false
 link-url = true
+
+keybind = alt+backspace=text:\x1b\x7f
+keybind = shift+enter=text:\n

@@ -1,0 +1,23 @@
+{
+  "defaultProvider": "anthropic",
+  "defaultThinkingLevel": "medium",
+  "theme": "tokyonight",
+  "compaction": {
+    "enabled": true,
+    "reserveTokens": 16384,
+    "keepRecentTokens": 20000
+  },
+  "retry": {
+    "enabled": true,
+    "maxRetries": 3
+  },
+  "enabledModels": [
+    "claude-*"
+  ],
+  "lastChangelogVersion": "0.55.1",
+  "packages": [
+    "npm:@juanibiapina/pi-extension-settings",
+    "npm:@juanibiapina/pi-plan"
+  ],
+  "defaultModel": "claude-opus-4-6"
+}

@@ -183,11 +183,16 @@ ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=50                 # Limit buffer size for perfo
 # Accept autosuggestions with Ctrl+Y (like nvim pickers)
 bindkey '^Y' autosuggest-accept
 
-# Additional autosuggestion keybindings
-bindkey '^[f' autosuggest-accept                # Alt+F to accept suggestion
-bindkey '^[w' autosuggest-execute               # Alt+W to accept and execute
-bindkey '^[c' autosuggest-clear                 # Alt+C to clear suggestion
+# Vi mode keybindings for autosuggestions
+bindkey -M viins '^E' end-of-line               # Ctrl+E to jump to end of line in vi insert mode
+bindkey -M viins '^F' autosuggest-accept        # Ctrl+F to accept autosuggestions in vi insert mode
 
 # Additional completion keybindings for consistency
 bindkey '^I' expand-or-complete                 # Tab for completion
 bindkey '^[[Z' reverse-menu-complete            # Shift+Tab for reverse completion
+
+# agentuity
+export PATH=/home/huijiro/.agentuity/bin:$PATH
+
+# Amp CLI
+export PATH="/home/huijiro/.amp/bin:$PATH"

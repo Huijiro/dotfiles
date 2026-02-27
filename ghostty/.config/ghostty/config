@@ -33,3 +33,7 @@ window-decoration = none
 background-opacity = 0.9
 background-blur = true
 maximize = true
+
+# Settings
+copy-on-select = false
+link-url = true

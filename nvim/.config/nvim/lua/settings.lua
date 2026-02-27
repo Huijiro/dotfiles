@@ -70,3 +70,6 @@ vim.filetype.add({
     [".*%.env.*"] = "sh", -- or "dotenv" if you have a plugin for it
   },
 })
+
+-- Set conceallevel
+vim.opt.conceallevel = 2

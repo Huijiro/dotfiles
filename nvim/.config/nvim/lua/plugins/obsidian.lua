@@ -5,16 +5,14 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
   },
-  opts = {
-    workspaces = {
-      {
-        name = "Agentuity",
-        path = "~/Documents/Work/Agentuity Vault/",
+  init = function()
+    require("obsidian").setup({
+      workspaces = {
+        {
+          name = "Agentuity",
+          path = "~/Documents/Work/Agentuity Vault/",
+        },
       },
-    },
-
-  },
-  keys = {
-    { "<leader>o", "<cmd>Obsidian<cr>", desc = "Open Obsidian" },
-  }
+    })
+  end,
 }

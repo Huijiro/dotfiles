@@ -1,10 +1,11 @@
 return {
   {
-
-    'echasnovski/mini.nvim',
-    config = function()
+    'nvim-mini/mini.nvim',
+    version = false,
+    init = function()
       require('mini.pairs').setup()
       require('mini.ai').setup { n_lines = 500 }
+      require('mini.statusline').setup()
       require('mini.surround').setup()
       require('mini.icons').setup()
       require('mini.files').setup({
@@ -121,45 +122,7 @@ return {
         -- Refresh hipatterns for current buffer
         vim.cmd('edit')
       end, { desc = "Toggle censoring of sensitive information" })
-    end,
-    keys = {
-      {
-        "<leader>e",
-        function()
-          local files = require("mini.files")
-          local buf = vim.api.nvim_buf_get_name(0)
 
-
-
-          if buf:match("ministarter") then
-            files.open()
-          else
-            files.open(vim.api.nvim_buf_get_name(0))
-            files.reveal_cwd()
-          end
-        end,
-        desc = "Open current working directory on file"
-      },
-      {
-        "<leader>E",
-        function()
-          local files = require("mini.files")
-          files.open()
-        end,
-        desc = "Open current working directory"
-      },
-      {
-        "<leader>tc",
-        ":ToggleCensor<CR>",
-        desc = "Toggle censoring"
-      },
-    }
-  },
-  {
-    "echasnovski/mini.starter",
-    event = "VimEnter",
-    config = function()
-      require('mini.statusline').setup()
       local starter = require('mini.starter')
       starter.setup({
         autoopen = true,
@@ -197,32 +160,32 @@ return {
             "The Primeagen",
             "Theo",
             "The Cherno",
-            "Fireship",
-            "Low Level",
-            "Acerola"
+            "fireship",
+            "low level",
+            "acerola"
           }
-          -- Show random message from array of messages (jokes)
+          -- show random message from array of messages (jokes)
           local messages = {
-            "Programming is pain.",
-            "Now with extra features(bugs).",
-            "I'm a programmer, not a artist.",
-            "I'm not a programmer, I'm a artist.",
-            "Have you tried asking AI?",
-            "You can't do that on a programming contest.",
-            "[ERROR] Neovim stopped working! -jk",
-            "Uncaught TypeError: object is not a function",
-            "We are " .. math.random(1, 30) .. " days away from AI stealing all our jobs.",
-            "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.",
-            "Don't delete coconut.png",
-            "I forgot how to implement HTTP2/3",
-            "How do I reset my main branch again?",
-            "Sorry, commited to main.",
-            "[object Object]",
-            "Have you considered using a language that is more suited for this task? Like " ..
+            "programming is pain.",
+            "now with extra features(bugs).",
+            "i'm a programmer, not a artist.",
+            "i'm not a programmer, i'm a artist.",
+            "have you tried asking ai?",
+            "you can't do that on a programming contest.",
+            "[error] neovim stopped working! -jk",
+            "uncaught typeerror: object is not a function",
+            "we are " .. math.random(1, 30) .. " days away from ai stealing all our jobs.",
+            "always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.",
+            "don't delete coconut.png",
+            "i forgot how to implement http2/3",
+            "how do i reset my main branch again?",
+            "sorry, commited to main.",
+            "[object object]",
+            "have you considered using a language that is more suited for this task? like " ..
             languages[math.random(1, #languages)] .. ".",
-            "Have you consider paying for a course?",
-            "What would " .. content_creator[math.random(1, #content_creator)] .. " do?",
-            "When are you studying assembly again?"
+            "have you consider paying for a course?",
+            "what would " .. content_creator[math.random(1, #content_creator)] .. " do?",
+            "when are you studying assembly again?"
           }
 
           local random = math.random(1, #messages)
@@ -230,6 +193,35 @@ return {
           return messages[random]
         end
       })
-    end
-  }
+    end,
+    keys = {
+      {
+        "<leader>e",
+        function()
+          local files = require("mini.files")
+          local buf = vim.api.nvim_buf_get_name(0)
+          if buf:match("ministarter") then
+            files.open()
+          else
+            files.open(vim.api.nvim_buf_get_name(0))
+            files.reveal_cwd()
+          end
+        end,
+        desc = "Open current working directory on file"
+      },
+      {
+        "<leader>E",
+        function()
+          local files = require("mini.files")
+          files.open()
+        end,
+        desc = "Open current working directory"
+      },
+      {
+        "<leader>tc",
+        ":ToggleCensor<CR>",
+        desc = "Toggle censoring"
+      },
+    }
+  },
 }

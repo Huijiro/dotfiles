@@ -185,9 +185,24 @@ style = "fg:#212736"
 format = '[[ $symbol ($version) ](fg:#769ff0)]($style)'
 
 [php]
-symbol = ""
+symbol = ""
 style = "fg:#212736"
 format = '[[ $symbol ($version) ](fg:#769ff0)]($style)'
+
+[custom.agentuity]
+command = '''
+if [ -f "./node_modules/.bin/agentuity" ]; then
+  bun ./node_modules/.bin/agentuity --version 2>&1 | head -n1 | sed 's/[^0-9.]//g'
+else
+  agentuity --version 2>&1 | head -n1 | sed 's/[^0-9.]//g'
+fi
+'''
+detect_files = ["agentuity.json"]
+symbol = "△ "
+style = "fg:#00ffff"
+format = 'using [$symbol($output) ]($style)'
+shell = ["bash", "--noprofile", "--norc"]
+description = "Show agentuity CLI version in agentuity projects"
 
 [time]
 disabled = false

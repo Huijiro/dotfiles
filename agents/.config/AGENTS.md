@@ -41,3 +41,7 @@ Keep all documentation concise and to the point. Avoid unnecessary verbosity or 
 ## Tooling Planning
 
 Before using any tool or executing commands, first identify and plan what tooling approach makes sense for the task. Ask the user if the approach is appropriate before proceeding with tool execution. Avoid using time estimates, we just want to plan not give time.
+
+## Skill Creation
+
+When noticing a task or workflow being repeated across conversations (e.g., similar prompts, recurring patterns, or repeated instructions), prompt the user about whether it should be turned into a reusable skill.

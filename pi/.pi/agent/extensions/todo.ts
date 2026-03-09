@@ -1,13 +1,32 @@
 /**
- * Todo Extension - Demonstrates state management via session entries
+ * Todo Extension - State management via session entries
  *
  * This extension:
  * - Registers a `todo` tool for the LLM to manage todos
  * - Registers a `/todos` command for users to view the list
+ * - Exposes an event bus API for other extensions to manage todos
  *
  * State is stored in tool result details (not external files), which allows
  * proper branching - when you branch, the todo state is automatically
  * correct for that point in history.
+ *
+ * ## Event Bus API
+ *
+ * Other extensions can manage todos via `pi.events`:
+ *
+ * - `todo:import` — Bulk import items: `{ items: { text: string }[], clear?: boolean }`
+ *   Emits `todo:changed` after import.
+ *
+ * - `todo:complete` — Mark a todo done by id: `{ id: number }`
+ *   Emits `todo:changed` after completion.
+ *
+ * - `todo:clear` — Clear all todos (no payload).
+ *   Emits `todo:changed` after clearing.
+ *
+ * - `todo:get` — Query current state: `{ callback: (state) => void }`
+ *   Calls back with `{ todos: Todo[], nextId: number }`.
+ *
+ * - `todo:changed` — Emitted whenever todos change. Payload: `{ todos: Todo[] }`.
  */
 
 import { StringEnum } from "@mariozechner/pi-ai";
@@ -26,7 +45,7 @@ interface Todo {
 }
 
 interface TodoDetails {
-  action: "list" | "add" | "toggle" | "clear";
+  action: "list" | "add" | "toggle" | "clear" | "import";
   todos: Todo[];
   nextId: number;
   error?: string;
@@ -129,24 +148,83 @@ export default function (pi: ExtensionAPI) {
 
   /**
    * Reconstruct state from session entries.
-   * Scans tool results for this tool and applies them in order.
+   * Scans tool results for this tool and custom entries for imports.
    */
   const reconstructState = (ctx: ExtensionContext) => {
     todos = [];
     nextId = 1;
 
     for (const entry of ctx.sessionManager.getBranch()) {
-      if (entry.type !== "message") continue;
-      const msg = entry.message;
-      if (msg.role !== "toolResult" || msg.toolName !== "todo") continue;
+      // Restore from tool results
+      if (entry.type === "message") {
+        const msg = entry.message;
+        if (msg.role !== "toolResult" || msg.toolName !== "todo") continue;
 
-      const details = msg.details as TodoDetails | undefined;
-      if (details) {
-        todos = details.todos;
-        nextId = details.nextId;
+        const details = msg.details as TodoDetails | undefined;
+        if (details) {
+          todos = details.todos;
+          nextId = details.nextId;
+        }
+      }
+
+      // Restore from custom entries (event bus imports/completions/clears)
+      if (entry.type === "custom" && entry.customType === "todo-state") {
+        const data = entry.data as { todos: Todo[]; nextId: number } | undefined;
+        if (data) {
+          todos = data.todos;
+          nextId = data.nextId;
+        }
       }
     }
   };
+
+  /** Persist current state as a custom entry */
+  const persistState = () => {
+    pi.appendEntry("todo-state", { todos: [...todos], nextId });
+  };
+
+  /** Emit changed event */
+  const emitChanged = () => {
+    pi.events.emit("todo:changed", { todos: [...todos] });
+  };
+
+  // --- Event Bus API ---
+
+  // Import items in bulk (used by conversation-mode for plan steps)
+  pi.events.on("todo:import", (data: { items: { text: string }[]; clear?: boolean }) => {
+    if (data.clear) {
+      todos = [];
+      nextId = 1;
+    }
+    for (const item of data.items) {
+      todos.push({ id: nextId++, text: item.text, done: false });
+    }
+    persistState();
+    emitChanged();
+  });
+
+  // Complete a todo by id
+  pi.events.on("todo:complete", (data: { id: number }) => {
+    const todo = todos.find((t) => t.id === data.id);
+    if (todo && !todo.done) {
+      todo.done = true;
+      persistState();
+      emitChanged();
+    }
+  });
+
+  // Clear all todos
+  pi.events.on("todo:clear", () => {
+    todos = [];
+    nextId = 1;
+    persistState();
+    emitChanged();
+  });
+
+  // Query current state
+  pi.events.on("todo:get", (data: { callback: (state: { todos: Todo[]; nextId: number }) => void }) => {
+    data.callback({ todos: [...todos], nextId });
+  });
 
   // Reconstruct state on session events
   pi.on("session_start", async (_event, ctx) => reconstructState(ctx));
@@ -201,6 +279,7 @@ export default function (pi: ExtensionAPI) {
             done: false,
           };
           todos.push(newTodo);
+          emitChanged();
           return {
             content: [
               {
@@ -243,6 +322,7 @@ export default function (pi: ExtensionAPI) {
             };
           }
           todo.done = !todo.done;
+          emitChanged();
           return {
             content: [
               {
@@ -262,6 +342,7 @@ export default function (pi: ExtensionAPI) {
           const count = todos.length;
           todos = [];
           nextId = 1;
+          emitChanged();
           return {
             content: [{ type: "text", text: `Cleared ${count} todos` }],
             details: { action: "clear", todos: [], nextId: 1 } as TodoDetails,
@@ -328,8 +409,12 @@ export default function (pi: ExtensionAPI) {
           return new Text(listText, 0, 0);
         }
 
-        case "add": {
+        case "add":
+        case "import": {
           const added = todoList[todoList.length - 1];
+          if (!added) {
+            return new Text(theme.fg("dim", "No items"), 0, 0);
+          }
           return new Text(
             theme.fg("success", "✓ Added ") +
               theme.fg("accent", `#${added.id}`) +

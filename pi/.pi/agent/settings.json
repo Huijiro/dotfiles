@@ -1,6 +1,6 @@
 {
   "defaultProvider": "anthropic",
-  "defaultThinkingLevel": "medium",
+  "defaultThinkingLevel": "off",
   "theme": "tokyonight",
   "compaction": {
     "enabled": true,
@@ -14,10 +14,9 @@
   "enabledModels": [
     "claude-*"
   ],
-  "lastChangelogVersion": "0.55.2",
+  "lastChangelogVersion": "0.57.1",
   "packages": [
-    "npm:@juanibiapina/pi-extension-settings",
-    "npm:@juanibiapina/pi-plan"
+    "npm:@juanibiapina/pi-extension-settings"
   ],
   "defaultModel": "claude-opus-4-6"
 }

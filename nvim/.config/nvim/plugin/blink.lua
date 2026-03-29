@@ -1,29 +1,23 @@
-return {
-  'saghen/blink.cmp',
-  event = "InsertEnter",
-  dependencies = {
-    {
-      "L3MON4D3/LuaSnip",
-      version = "v2.*",
-    },
-    {
-      "saghen/blink.compat",
-      opts = {
-        enable_events = true
-      }
-    },
-    {
-      "huijiro/blink-cmp-supermaven",
-      dependencies = {
-        "supermaven-inc/supermaven-nvim",
-        opts = {
-          disable_inline_completion = true, -- disables inline completion for use with cmp
-          disable_keymaps = true            -- disables built in keymaps for more manual control
-        }
-      }
-    }
-  },
-  opts = {
+-- Lazy load blink.cmp on InsertEnter
+vim.api.nvim_create_autocmd('InsertEnter', { once = true, callback = function()
+  vim.pack.add({
+    'https://github.com/L3MON4D3/LuaSnip',
+    'https://github.com/saghen/blink.compat',
+    'https://github.com/supermaven-inc/supermaven-nvim',
+    'https://github.com/huijiro/blink-cmp-supermaven',
+    'https://github.com/saghen/blink.cmp',
+  })
+
+  require('supermaven-nvim').setup({
+    disable_inline_completion = true,
+    disable_keymaps = true,
+  })
+
+  require('blink.compat').setup({
+    enable_events = true,
+  })
+
+  require('blink.cmp').setup({
     snippets = { preset = "luasnip" },
     sources = {
       default = { "lsp", 'supermaven', 'path', "snippets", 'buffer' },
@@ -35,7 +29,7 @@ return {
         supermaven = {
           name = 'supermaven',
           module = 'blink-cmp-supermaven',
-          async = true
+          async = true,
         }
       }
     },
@@ -44,7 +38,6 @@ return {
       ['<C-j>'] = { 'show', 'show_documentation', 'hide_documentation' },
       ['<C-e>'] = { 'hide' },
       ['<C-y>'] = { 'select_and_accept' },
-
 
       ['<Up>'] = { 'select_prev', 'fallback' },
       ['<Down>'] = { 'select_next', 'fallback' },
@@ -56,5 +49,5 @@ return {
 
       ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
     }
-  }
-}
+  })
+end })

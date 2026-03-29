@@ -6,6 +6,7 @@ export GOPATH=$HOME/go
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/Apps:/var/lib/flatpak/exports/bin:/opt/nvim/:$GOPATH/bin:$HOME/.dotnet/tools:$HOME/.local/share/bob/nvim-bin:$PATH
 
 export EDITOR="nvim"
+export VISUAL="nvim"
 
 # External exports file
 if [[ -r $HOME/.zshexports ]]; then
@@ -62,6 +63,7 @@ plugins=(
   git
   nvm
   zsh-autosuggestions
+  zsh-system-clipboard
 )
 
 bindkey -v 

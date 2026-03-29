@@ -239,7 +239,7 @@ export default function questionnaire(pi: ExtensionAPI) {
 
             // Tab navigation (multi-question only)
             if (isMulti) {
-              if (matchesKey(data, Key.tab) || matchesKey(data, Key.right)) {
+              if (matchesKey(data, Key.tab) || matchesKey(data, Key.right) || matchesKey(data, "l")) {
                 currentTab = (currentTab + 1) % totalTabs;
                 optionIndex = 0;
                 refresh();
@@ -247,7 +247,8 @@ export default function questionnaire(pi: ExtensionAPI) {
               }
               if (
                 matchesKey(data, Key.shift("tab")) ||
-                matchesKey(data, Key.left)
+                matchesKey(data, Key.left) ||
+                matchesKey(data, "h")
               ) {
                 currentTab = (currentTab - 1 + totalTabs) % totalTabs;
                 optionIndex = 0;
@@ -267,12 +268,12 @@ export default function questionnaire(pi: ExtensionAPI) {
             }
 
             // Option navigation
-            if (matchesKey(data, Key.up)) {
+            if (matchesKey(data, Key.up) || matchesKey(data, "k")) {
               optionIndex = Math.max(0, optionIndex - 1);
               refresh();
               return;
             }
-            if (matchesKey(data, Key.down)) {
+            if (matchesKey(data, Key.down) || matchesKey(data, "j")) {
               optionIndex = Math.min(opts.length - 1, optionIndex + 1);
               refresh();
               return;
@@ -401,8 +402,8 @@ export default function questionnaire(pi: ExtensionAPI) {
             lines.push("");
             if (!inputMode) {
               const help = isMulti
-                ? " Tab/←→ navigate • ↑↓ select • Enter confirm • Esc cancel"
-                : " ↑↓ navigate • Enter select • Esc cancel";
+                ? " Tab/hl navigate • jk select • Enter confirm • Esc cancel"
+                : " jk navigate • Enter select • Esc cancel";
               add(theme.fg("dim", help));
             }
             add(theme.fg("accent", "─".repeat(width)));

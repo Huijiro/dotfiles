@@ -1,28 +1,71 @@
 {
-  "cursorUp": ["alt+k"],
-  "cursorDown": ["alt+j"],
-  "cursorLeft": ["alt+h", "ctrl+b"],
-  "cursorRight": ["alt+l", "ctrl+f"],
-  "cursorWordLeft": ["alt+b"],
-  "cursorWordRight": ["alt+w"],
-  "cursorLineStart": ["ctrl+a", "alt+0"],
-  "cursorLineEnd": ["ctrl+e", "alt+$"],
-  "pageUp": ["alt+u"],
-  "pageDown": ["alt+d"],
-
-  "deleteWordBackward": ["ctrl+w", "alt+backspace"],
-  "deleteWordForward": ["alt+delete"],
-  "deleteToLineStart": ["ctrl+u"],
-  "deleteToLineEnd": ["ctrl+k"],
-
-  "selectUp": ["alt+k"],
-  "selectDown": ["alt+j"],
-  "selectPageUp": ["alt+u"],
-  "selectPageDown": ["alt+d"],
-
-  "newSession": ["ctrl+alt+n"],
-  "tree": ["ctrl+alt+t"],
-  "resume": ["ctrl+alt+r"],
-
-  "tab": []
+  "tui.editor.cursorUp": [
+    "alt+k"
+  ],
+  "tui.editor.cursorDown": [
+    "alt+j"
+  ],
+  "tui.editor.cursorLeft": [
+    "alt+h",
+    "ctrl+b"
+  ],
+  "tui.editor.cursorRight": [
+    "alt+l",
+    "ctrl+f"
+  ],
+  "tui.editor.cursorWordLeft": [
+    "alt+b"
+  ],
+  "tui.editor.cursorWordRight": [
+    "alt+w"
+  ],
+  "tui.editor.cursorLineStart": [
+    "ctrl+a",
+    "alt+0"
+  ],
+  "tui.editor.cursorLineEnd": [
+    "ctrl+e",
+    "alt+$"
+  ],
+  "tui.editor.pageUp": [
+    "alt+u"
+  ],
+  "tui.editor.pageDown": [
+    "alt+d"
+  ],
+  "tui.editor.deleteWordBackward": [
+    "ctrl+w",
+    "alt+backspace"
+  ],
+  "tui.editor.deleteWordForward": [
+    "alt+delete"
+  ],
+  "tui.editor.deleteToLineStart": [
+    "ctrl+u"
+  ],
+  "tui.editor.deleteToLineEnd": [
+    "ctrl+k"
+  ],
+  "tui.input.tab": [],
+  "tui.select.up": [
+    "alt+k"
+  ],
+  "tui.select.down": [
+    "alt+j"
+  ],
+  "tui.select.pageUp": [
+    "alt+u"
+  ],
+  "tui.select.pageDown": [
+    "alt+d"
+  ],
+  "app.session.new": [
+    "ctrl+alt+n"
+  ],
+  "app.session.tree": [
+    "ctrl+alt+t"
+  ],
+  "app.session.resume": [
+    "ctrl+alt+r"
+  ]
 }

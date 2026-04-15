@@ -1,5 +1,3 @@
-TERM=xterm-256color
-
 export GOPATH=$HOME/go
 
 # If you come from bash you might have to change your $PATH.

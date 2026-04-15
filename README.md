@@ -159,6 +159,7 @@ See [CHANGELOG.md](CHANGELOG.md) for recent improvements including:
 cd ~/dotfiles
 mkdir -p newapp/.config/newapp
 # Add your configs to newapp/.config/newapp/
+
 stow newapp
 ```
 
@@ -187,3 +188,5 @@ This project is licensed under the MIT License - feel free to use and modify as 
 ---
 
 **Note**: These configurations are tailored for Arch Linux but should work on most Unix-like systems with minor adjustments.
+
+**Pi Integration**: Includes a Pi ↔ Neovim bridge for non-intrusive AI-assisted editing. See `pi/.pi/agent/extensions/pi-nvim-bridge/` for setup and usage.

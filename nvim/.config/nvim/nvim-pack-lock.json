@@ -65,6 +65,10 @@
       "rev": "a776085e04f7b15d0b59fae2244df07d98360ab4",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
+    "nvim-pi": {
+      "rev": "caf1af8255ebe052371b4c0477e452c4b9ecff03",
+      "src": "https://github.com/huijiro/nvim-pi"
+    },
     "nvim-treesitter": {
       "rev": "7caec274fd19c12b55902a5b795100d21531391f",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"

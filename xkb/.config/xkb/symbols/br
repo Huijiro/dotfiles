@@ -1,0 +1,18 @@
+// Brazilian ISO keyboard layout with AltGr dead keys
+// Uses us(altgr-intl) as base since ISO keyboards lack ABNT2 extra keys,
+// then applies Brazilian AltGr mappings:
+//   - AltGr+Q = ã, AltGr+Shift+Q = Ã  (matches br ABNT2 behavior)
+//   - AltGr+C = ç, AltGr+Shift+C = Ç  (matches br ABNT2 behavior)
+
+partial alphanumeric_keys
+xkb_symbols "iso-altgr" {
+
+    include "us(altgr-intl)"
+    name[Group1] = "Portuguese (Brazil, ISO, AltGr dead keys)";
+
+    // Override Q key: AltGr+Q = ã, AltGr+Shift+Q = Ã
+    key <AD01> { [q, Q, atilde, Atilde] };
+
+    // Override C key: AltGr+C = ç, AltGr+Shift+C = Ç
+    key <AB03> { [c, C, ccedilla, Ccedilla] };
+};

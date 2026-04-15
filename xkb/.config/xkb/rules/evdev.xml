@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xkbConfigRegistry SYSTEM "xkb.dtd">
+<xkbConfigRegistry version="1.1">
+  <layoutList>
+    <layout>
+      <configItem>
+        <name>br</name>
+      </configItem>
+      <variantList>
+        <variant>
+          <configItem>
+            <name>iso-altgr</name>
+            <description>Portuguese (Brazil, ISO, AltGr dead keys)</description>
+            <languageList>
+              <iso639Id>por</iso639Id>
+            </languageList>
+          </configItem>
+        </variant>
+      </variantList>
+    </layout>
+  </layoutList>
+</xkbConfigRegistry>

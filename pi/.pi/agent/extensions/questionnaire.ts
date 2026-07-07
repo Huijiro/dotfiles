@@ -31,14 +31,26 @@ interface Question {
   prompt: string;
   options: QuestionOption[];
   allowOther: boolean;
+  multi: boolean;
 }
 
-interface Answer {
-  id: string;
+interface AnswerSelection {
   value: string;
   label: string;
   wasCustom: boolean;
   index?: number;
+}
+
+interface Answer {
+  id: string;
+  multi: boolean;
+  // For single-select, selections has exactly one entry. The top-level
+  // value/label/wasCustom/index mirror it for backwards compatibility.
+  value: string;
+  label: string;
+  wasCustom: boolean;
+  index?: number;
+  selections: AnswerSelection[];
 }
 
 interface QuestionnaireResult {
@@ -71,6 +83,12 @@ const QuestionSchema = Type.Object({
   allowOther: Type.Optional(
     Type.Boolean({
       description: "Allow 'Type something' option (default: true)",
+    }),
+  ),
+  multi: Type.Optional(
+    Type.Boolean({
+      description:
+        "Allow selecting multiple options. Space toggles, Enter confirms (default: false)",
     }),
   ),
 });
@@ -114,6 +132,7 @@ export default function questionnaire(pi: ExtensionAPI) {
         ...q,
         label: q.label || `Q${i + 1}`,
         allowOther: q.allowOther !== false,
+        multi: q.multi === true,
       }));
 
       const isMulti = questions.length > 1;
@@ -128,6 +147,11 @@ export default function questionnaire(pi: ExtensionAPI) {
           let inputQuestionId: string | null = null;
           let cachedLines: string[] | undefined;
           const answers = new Map<string, Answer>();
+          // Per-question pending selections for multi-select mode.
+          // Keyed by question id; values are option indices into currentOptions().
+          // Custom ("Type something") entries are tracked separately.
+          const pendingSelections = new Map<string, Set<number>>();
+          const pendingCustom = new Map<string, string>();
 
           // Editor for "Type something" option
           const editorTheme: EditorTheme = {
@@ -201,21 +225,75 @@ export default function questionnaire(pi: ExtensionAPI) {
           ) {
             answers.set(questionId, {
               id: questionId,
+              multi: false,
               value,
               label,
               wasCustom,
               index,
+              selections: [{ value, label, wasCustom, index }],
             });
+          }
+
+          function getPending(questionId: string): Set<number> {
+            let set = pendingSelections.get(questionId);
+            if (!set) {
+              set = new Set<number>();
+              pendingSelections.set(questionId, set);
+            }
+            return set;
+          }
+
+          function confirmMulti(q: Question): boolean {
+            const opts = q.options; // exclude "Type something" sentinel
+            const set = pendingSelections.get(q.id) ?? new Set<number>();
+            const custom = pendingCustom.get(q.id);
+            const selections: AnswerSelection[] = [];
+            // Preserve option order.
+            for (let i = 0; i < opts.length; i++) {
+              if (set.has(i)) {
+                selections.push({
+                  value: opts[i].value,
+                  label: opts[i].label,
+                  wasCustom: false,
+                  index: i + 1,
+                });
+              }
+            }
+            if (custom) {
+              selections.push({ value: custom, label: custom, wasCustom: true });
+            }
+            if (selections.length === 0) {
+              return false;
+            }
+            const first = selections[0];
+            answers.set(q.id, {
+              id: q.id,
+              multi: true,
+              value: first.value,
+              label: first.label,
+              wasCustom: first.wasCustom,
+              index: first.index,
+              selections,
+            });
+            return true;
           }
 
           // Editor submit callback
           editor.onSubmit = (value) => {
             if (!inputQuestionId) return;
             const trimmed = value.trim() || "(no response)";
-            saveAnswer(inputQuestionId, trimmed, trimmed, true);
+            const qId = inputQuestionId;
+            const q = questions.find((x) => x.id === qId);
             inputMode = false;
             inputQuestionId = null;
             editor.setText("");
+            if (q?.multi) {
+              // Stash the custom entry; user confirms the whole set with Enter.
+              pendingCustom.set(qId, trimmed);
+              refresh();
+              return;
+            }
+            saveAnswer(qId, trimmed, trimmed, true);
             advanceAfterAnswer();
           };
 
@@ -279,14 +357,45 @@ export default function questionnaire(pi: ExtensionAPI) {
               return;
             }
 
+            // Toggle option (multi-select only)
+            if (matchesKey(data, " ") && q && q.multi) {
+              const opt = opts[optionIndex];
+              if (opt.isOther) {
+                // Space on "Type something" opens the editor too.
+                inputMode = true;
+                inputQuestionId = q.id;
+                editor.setText(pendingCustom.get(q.id) ?? "");
+                refresh();
+                return;
+              }
+              const set = getPending(q.id);
+              if (set.has(optionIndex)) {
+                set.delete(optionIndex);
+              } else {
+                set.add(optionIndex);
+              }
+              refresh();
+              return;
+            }
+
             // Select option
             if (matchesKey(data, Key.enter) && q) {
               const opt = opts[optionIndex];
               if (opt.isOther) {
                 inputMode = true;
                 inputQuestionId = q.id;
-                editor.setText("");
+                editor.setText(q.multi ? (pendingCustom.get(q.id) ?? "") : "");
                 refresh();
+                return;
+              }
+              if (q.multi) {
+                // Enter on a regular option in multi mode: ensure it's
+                // selected, then confirm the set.
+                const set = getPending(q.id);
+                set.add(optionIndex);
+                if (confirmMulti(q)) {
+                  advanceAfterAnswer();
+                }
                 return;
               }
               saveAnswer(q.id, opt.value, opt.label, false, optionIndex + 1);
@@ -340,17 +449,33 @@ export default function questionnaire(pi: ExtensionAPI) {
 
             // Helper to render options list
             function renderOptions() {
+              const isMultiQ = q?.multi === true;
+              const pending = q ? pendingSelections.get(q.id) : undefined;
+              const customEntry = q ? pendingCustom.get(q.id) : undefined;
               for (let i = 0; i < opts.length; i++) {
                 const opt = opts[i];
-                const selected = i === optionIndex;
+                const cursorOn = i === optionIndex;
                 const isOther = opt.isOther === true;
-                const prefix = selected ? theme.fg("accent", "> ") : "  ";
-                const color = selected ? "accent" : "text";
+                const prefix = cursorOn ? theme.fg("accent", "> ") : "  ";
+                const color = cursorOn ? "accent" : "text";
+                let box = "";
+                if (isMultiQ) {
+                  const checked = isOther
+                    ? !!customEntry
+                    : !!pending?.has(i);
+                  box = `${checked ? "[x]" : "[ ]"} `;
+                }
                 // Mark "Type something" differently when in input mode
                 if (isOther && inputMode) {
-                  add(prefix + theme.fg("accent", `${i + 1}. ${opt.label} ✎`));
+                  add(prefix + theme.fg("accent", `${box}${i + 1}. ${opt.label} ✎`));
+                } else if (isOther && isMultiQ && customEntry) {
+                  add(
+                    prefix +
+                      theme.fg(color, `${box}${i + 1}. ${opt.label}: `) +
+                      theme.fg("muted", customEntry),
+                  );
                 } else {
-                  add(prefix + theme.fg(color, `${i + 1}. ${opt.label}`));
+                  add(prefix + theme.fg(color, `${box}${i + 1}. ${opt.label}`));
                 }
                 if (opt.description) {
                   add(`     ${theme.fg("muted", opt.description)}`);
@@ -377,9 +502,11 @@ export default function questionnaire(pi: ExtensionAPI) {
               for (const question of questions) {
                 const answer = answers.get(question.id);
                 if (answer) {
-                  const prefix = answer.wasCustom ? "(wrote) " : "";
+                  const rendered = answer.selections
+                    .map((s) => (s.wasCustom ? `(wrote) ${s.label}` : s.label))
+                    .join(", ");
                   add(
-                    `${theme.fg("muted", ` ${question.label}: `)}${theme.fg("text", prefix + answer.label)}`,
+                    `${theme.fg("muted", ` ${question.label}: `)}${theme.fg("text", rendered)}`,
                   );
                 }
               }
@@ -401,9 +528,20 @@ export default function questionnaire(pi: ExtensionAPI) {
 
             lines.push("");
             if (!inputMode) {
-              const help = isMulti
-                ? " Tab/hl navigate • jk select • Enter confirm • Esc cancel"
-                : " jk navigate • Enter select • Esc cancel";
+              const isMultiQ = q?.multi === true;
+              const onSubmitTab = currentTab === questions.length;
+              let help: string;
+              if (onSubmitTab) {
+                help = " Tab/hl navigate • Enter submit • Esc cancel";
+              } else if (isMultiQ) {
+                help = isMulti
+                  ? " Tab/hl tabs • jk move • Space toggle • Enter confirm • Esc cancel"
+                  : " jk move • Space toggle • Enter confirm • Esc cancel";
+              } else {
+                help = isMulti
+                  ? " Tab/hl navigate • jk select • Enter confirm • Esc cancel"
+                  : " jk navigate • Enter select • Esc cancel";
+              }
               add(theme.fg("dim", help));
             }
             add(theme.fg("accent", "─".repeat(width)));
@@ -431,10 +569,13 @@ export default function questionnaire(pi: ExtensionAPI) {
 
       const answerLines = result.answers.map((a) => {
         const qLabel = questions.find((q) => q.id === a.id)?.label || a.id;
-        if (a.wasCustom) {
-          return `${qLabel}: user wrote: ${a.label}`;
-        }
-        return `${qLabel}: user selected: ${a.index}. ${a.label}`;
+        const parts = a.selections.map((s) => {
+          if (s.wasCustom) {
+            return `user wrote: ${s.label}`;
+          }
+          return `user selected: ${s.index}. ${s.label}`;
+        });
+        return `${qLabel}: ${parts.join("; ")}`;
       });
 
       return {
@@ -465,11 +606,15 @@ export default function questionnaire(pi: ExtensionAPI) {
         return new Text(theme.fg("warning", "Cancelled"), 0, 0);
       }
       const lines = details.answers.map((a) => {
-        if (a.wasCustom) {
-          return `${theme.fg("success", "✓ ")}${theme.fg("accent", a.id)}: ${theme.fg("muted", "(wrote) ")}${a.label}`;
-        }
-        const display = a.index ? `${a.index}. ${a.label}` : a.label;
-        return `${theme.fg("success", "✓ ")}${theme.fg("accent", a.id)}: ${display}`;
+        const rendered = a.selections
+          .map((s) => {
+            if (s.wasCustom) {
+              return `${theme.fg("muted", "(wrote) ")}${s.label}`;
+            }
+            return s.index ? `${s.index}. ${s.label}` : s.label;
+          })
+          .join(theme.fg("muted", ", "));
+        return `${theme.fg("success", "✓ ")}${theme.fg("accent", a.id)}: ${rendered}`;
       });
       return new Text(lines.join("\n"), 0, 0);
     },

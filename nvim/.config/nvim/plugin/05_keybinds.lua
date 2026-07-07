@@ -6,11 +6,17 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', 's', '<nop>')
 
+-- File management keymaps
+vim.keymap.set('n', '<leader>w', ':w<cr>', { desc = "Save" })
+vim.keymap.set('n', '<leader>q', ':q<cr>', { desc = "Quit" })
+vim.keymap.set('n', '<leader>Q', ':q!<cr>', { desc = "Force quit" })
+vim.keymap.set('n', '<leader>r', ':e<cr>', { desc = "Reload file" })
+vim.keymap.set('n', '<leader>R', ':e!<cr>', { desc = "Force Reload File" })
+
 
 -- Prevent deletes from overwriting clipboard
 vim.keymap.set({ "n", "v" }, "d", '"_d')
 vim.keymap.set({ "n", "v" }, "D", '"_D')
-vim.keymap.set({ "n", "v" }, "x", '"_x')
 
 -- Prevent changes from overwriting clipboard
 vim.keymap.set({ "n", "v" }, "c", '"_c')

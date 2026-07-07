@@ -196,3 +196,6 @@ export PATH=/home/huijiro/.agentuity/bin:$PATH
 
 # Amp CLI
 export PATH="/home/huijiro/.amp/bin:$PATH"
+
+# 1password agent sock
+export SSH_AUTH_SOCK=~/.1password/agent.sock

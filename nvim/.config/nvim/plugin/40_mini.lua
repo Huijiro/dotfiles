@@ -203,11 +203,63 @@ end)
 now(function()
 	local miniFiles = require("mini.files")
 
+	local show_hidden = true
+	local ignored_cache = {} ---@type table<string, boolean>
+
+	local is_git_ignored = function(path)
+		local cached = ignored_cache[path]
+		if cached ~= nil then
+			return cached
+		end
+		vim.fn.system({ "git", "check-ignore", "-q", "--", path })
+		local ignored = vim.v.shell_error == 0
+		ignored_cache[path] = ignored
+		return ignored
+	end
+
+	local is_dimmed = function(fs_entry)
+		return vim.startswith(fs_entry.name, ".") or is_git_ignored(fs_entry.path)
+	end
+
 	miniFiles.setup({
 		windows = { preview = false },
+		content = {
+			filter = function()
+				return true
+			end,
+			highlight = function(fs_entry)
+				if is_dimmed(fs_entry) then
+					return "Comment"
+				end
+				return miniFiles.default_highlight(fs_entry)
+			end,
+		},
 		mappings = {
 			synchronize = "w",
 		},
+	})
+
+	local filter_show = function(_fs_entry)
+		return true
+	end
+
+	local filter_hide = function(fs_entry)
+		return not is_dimmed(fs_entry)
+	end
+
+	local toggle_hidden = function()
+		show_hidden = not show_hidden
+		ignored_cache = {}
+		local new_filter = show_hidden and filter_show or filter_hide
+		MiniFiles.refresh({ content = { filter = new_filter } })
+	end
+
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "MiniFilesBufferCreate",
+		callback = function(args)
+			local buf_id = args.data.buf_id
+			vim.keymap.set("n", "i", toggle_hidden, { buffer = buf_id })
+		end,
 	})
 
 	vim.keymap.set("n", "<leader>e", function()

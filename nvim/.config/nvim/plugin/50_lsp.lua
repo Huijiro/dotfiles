@@ -16,6 +16,7 @@ vim.lsp.enable("ts_ls")
 vim.lsp.enable("sqls")
 vim.lsp.enable("jdtls")
 vim.lsp.enable("ols")
+vim.lsp.enable("rust_analyzer")
 
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
 vim.keymap.set("n", "J", vim.diagnostic.open_float)

@@ -23,6 +23,15 @@ These tools are faster and more user-friendly than their traditional counterpart
 ### Batch Processing
 - **`parallel`**: Execute operations in parallel on multiple files to speed up bulk transformations
 
+## Web Browsing & Research
+
+- Use the `agent-browser` skill and CLI as the default way to search the web, browse websites, read web content, and interact with pages.
+- Load the `agent-browser` skill before browsing, then follow its `open` → `snapshot` → interact → re-snapshot workflow.
+- Prefer browser-based search and primary sources over relying on remembered information. Verify time-sensitive claims and report the source URLs used.
+- Use named `agent-browser` sessions when concurrent agents may be browsing, and close the session when finished.
+- Use Firefox DevTools MCP when Firefox-specific debugging or inspection is needed; it is not the default web-search path.
+- Use direct HTTP or CLI retrieval only when browser automation is unsuitable, such as a user-provided API endpoint or a raw file download.
+
 ## Programming Guidelines
 
 ### Code Change Discipline

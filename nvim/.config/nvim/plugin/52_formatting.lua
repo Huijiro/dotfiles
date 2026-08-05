@@ -14,6 +14,7 @@ conform.setup({
 		cpp = { "clang-format" },
 		python = { "black" },
 		odin = { "odinfmt" },
+		rust = { "rustfmt" },
 	},
 	formatters = {
 		prettier = {

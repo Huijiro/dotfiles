@@ -24,7 +24,7 @@
     "agentuity/gpt-5.6-terra",
     "agentuity/grok-4.3"
   ],
-  "lastChangelogVersion": "0.83.0",
+  "lastChangelogVersion": "0.84.0",
   "packages": [
     "npm:@juanibiapina/pi-extension-settings",
     "https://github.com/Huijiro/click",
@@ -35,4 +35,3 @@
   ],
   "defaultModel": "gpt-5.6-luna"
 }
-

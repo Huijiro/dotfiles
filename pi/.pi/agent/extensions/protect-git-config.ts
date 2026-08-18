@@ -68,7 +68,7 @@ export default function (pi: ExtensionAPI) {
       label: "hook bypass (--no-verify)",
     },
     {
-      pattern: /\bgit\s+.*-n\b(?=.*\b(?:commit|push|merge)\b)/,
+      pattern: /\bgit\s+[^;&|\n]*\b(?:commit|push|merge)\b[^;&|\n]*-n\b/,
       label: "hook bypass (-n shorthand)",
     },
   ];

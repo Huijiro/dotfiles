@@ -1,6 +1,6 @@
 {
   "defaultProvider": "agentuity",
-  "defaultThinkingLevel": "low",
+  "defaultThinkingLevel": "high",
   "theme": "tokyonight",
   "compaction": {
     "enabled": true,
@@ -12,26 +12,18 @@
     "maxRetries": 3
   },
   "enabledModels": [
-    "anthropic/claude-haiku-4-5-20251001",
-    "anthropic/claude-sonnet-4-6",
-    "fireworks/accounts/fireworks/models/glm-5p1",
-    "openai/gpt-5.5",
-    "openai/gpt-5.5-pro",
-    "anthropic/claude-opus-4-8",
-    "agentuity/gpt-5.5",
     "agentuity/gpt-5.6-sol",
     "agentuity/gpt-5.6-luna",
-    "agentuity/gpt-5.6-terra",
-    "agentuity/grok-4.3"
+    "agentuity/gpt-5.6-terra"
   ],
-  "lastChangelogVersion": "0.84.0",
+  "lastChangelogVersion": "0.84.2",
   "packages": [
     "npm:@juanibiapina/pi-extension-settings",
     "https://github.com/Huijiro/click",
     "https://github.com/Huijiro/pi-lsp",
     "git:github.com/SamuelLHuber/pi-fff",
-    "npm:pi-mcp-adapter@2.20.1",
+    "npm:pi-mcp-adapter@2.24.0",
     "npm:pi-context"
   ],
-  "defaultModel": "gpt-5.6-luna"
+  "defaultModel": "gpt-5.6-sol"
 }

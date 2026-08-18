@@ -1,0 +1,29 @@
+#!/bin/sh
+
+set -eu
+
+socket_path=${1:-}
+[ -n "$socket_path" ] || exit 0
+
+command -v systemd-inhibit >/dev/null 2>&1 || exit 0
+command -v flock >/dev/null 2>&1 || exit 0
+
+runtime_dir=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
+[ -d "$runtime_dir" ] || runtime_dir=/tmp
+socket_id=$(printf '%s' "$socket_path" | cksum | awk '{ print $1 }')
+lock_file="$runtime_dir/tmux-inhibit-sleep-$socket_id.lock"
+
+exec 9>"$lock_file"
+flock -n 9 || exit 0
+
+systemd-inhibit \
+  --what=idle:sleep \
+  --who=tmux \
+  --why='A tmux session is running' \
+  --mode=block \
+  sh -c '
+    socket_path=$1
+    while tmux -S "$socket_path" has-session 2>/dev/null; do
+      sleep 5
+    done
+  ' sh "$socket_path"

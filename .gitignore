@@ -1,0 +1,13 @@
+# Pi runtime state and credentials
+pi/.pi/agent/auth.json
+pi/.pi/agent/click/
+pi/.pi/agent/fff/
+pi/.pi/agent/mcp-cache.json
+pi/.pi/agent/mcp-npx-cache.json
+pi/.pi/agent/mcp.json
+pi/.pi/agent/models-store.json
+pi/.pi/agent/models.json
+pi/.pi/agent/npm/
+pi/.pi/agent/sessions/
+pi/.pi/agent/settings.json
+pi/.pi/agent/trust.json

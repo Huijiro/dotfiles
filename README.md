@@ -47,6 +47,7 @@ stow alacritty # Terminal emulator (if desired)
 - **[hyprland/](hyprland/)** - Dynamic tiling Wayland compositor
 - **[laptop-hyperland/](laptop-hyperland/)** - Laptop-specific Hyprland config
 - **[i3/](i3/)** - Classic i3 window manager configuration
+- **[kde/](kde/)** - KDE Plasma shortcuts and desktop configuration
 - **[waybar/](waybar/)** - Wayland status bar 
 - **[laptop-waybar/](laptop-waybar/)** - Laptop-specific Waybar config
 - **[picom/](picom/)** - X11 compositor for transparency and effects

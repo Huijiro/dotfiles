@@ -12,7 +12,65 @@ vim.lsp.enable("lua_ls")
 vim.lsp.enable("pyright")
 vim.lsp.enable("svelte")
 vim.lsp.enable("tailwindcss")
-vim.lsp.enable("ts_ls")
+local ts_filetypes = {
+	"javascript",
+	"javascriptreact",
+	"typescript",
+	"typescriptreact",
+}
+
+local function typescript_root(bufnr)
+	return vim.fs.root(bufnr, {
+		"tsconfig.json",
+		"jsconfig.json",
+		"package.json",
+		".git",
+	})
+end
+
+local function uses_tsgo(bufnr)
+	local root = typescript_root(bufnr)
+	if not root then
+		return false
+	end
+
+	local dir = root
+	while dir do
+		local package_json = dir .. "/node_modules/typescript/package.json"
+		local ok, package = pcall(function()
+			return vim.json.decode(table.concat(vim.fn.readfile(package_json), "\n"))
+		end)
+		if ok and type(package) == "table" and type(package.version) == "string" then
+			local major = tonumber(package.version:match("^(%d+)"))
+			return major ~= nil and major >= 7
+		end
+
+		local parent = vim.fs.dirname(dir)
+		dir = parent ~= dir and parent or nil
+	end
+
+	return false
+end
+
+vim.lsp.config("ts_ls", {
+	root_dir = function(bufnr, on_dir)
+		if not uses_tsgo(bufnr) then
+			on_dir(typescript_root(bufnr))
+		end
+	end,
+})
+
+vim.lsp.config("tsgo", {
+	cmd = { "pnpm", "exec", "tsc", "--lsp", "--stdio" },
+	filetypes = ts_filetypes,
+	root_dir = function(bufnr, on_dir)
+		if uses_tsgo(bufnr) then
+			on_dir(typescript_root(bufnr))
+		end
+	end,
+})
+
+vim.lsp.enable({ "ts_ls", "tsgo" })
 vim.lsp.enable("sqls")
 vim.lsp.enable("jdtls")
 vim.lsp.enable("ols")

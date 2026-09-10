@@ -198,6 +198,17 @@ now_if_args(function()
 	-- Advertise to servers that Neovim now supports certain set of completion and
 	-- signature features through 'mini.completion'.
 	vim.lsp.config("*", { capabilities = miniCompletion.get_lsp_capabilities() })
+
+	-- JSON LSP property completions include their closing quote. When the
+	-- opening quote was paired by `mini.pairs`, that leaves two quotes at the
+	-- cursor; remove only the extra quote after completion is accepted.
+	Config.new_autocmd("CompleteDone", { "json", "jsonc" }, function(ev)
+		local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+		local line = vim.api.nvim_get_current_line()
+		if line:sub(col + 1, col + 2) == '""' then
+			vim.api.nvim_buf_set_text(ev.buf, row - 1, col, row - 1, col + 1, {})
+		end
+	end, "Remove duplicate JSON completion quote")
 end)
 
 now(function()
@@ -538,6 +549,18 @@ end)
 later(function()
 	-- Create pairs not only in Insert, but also in Command line mode
 	require("mini.pairs").setup({ modes = { command = true } })
+
+	-- `mini.pairs` skips a closing quote to the right of the cursor, but a
+	-- completion can leave the cursor immediately after that quote. In that
+	-- case, typing `"` should not create a second quote.
+	vim.keymap.set("i", '"', function()
+		local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+		local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1]
+		if col > 0 and line:sub(col, col) == '"' then
+			return ""
+		end
+		return MiniPairs.closeopen('""', "^[^\\]")
+	end, { expr = true, replace_keycodes = false })
 end)
 
 -- Pick anything with single window layout and fast matching. This is one of

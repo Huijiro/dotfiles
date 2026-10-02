@@ -11,3 +11,4 @@ pi/.pi/agent/npm/
 pi/.pi/agent/sessions/
 pi/.pi/agent/settings.json
 pi/.pi/agent/trust.json
+pi/.pi/agent/mcp-auth.json

@@ -6,6 +6,12 @@ allowed-tools: Bash(npx agent-browser:*), Bash(agent-browser:*)
 
 # Browser Automation with agent-browser
 
+## Choose browser or API
+
+Use direct HTTP or API requests for non-visual setup when an endpoint is available. This includes creating test accounts, seeding demo records, and preparing fixtures. It is faster and less brittle than driving setup screens.
+
+Use `agent-browser` when the task depends on rendered UI, browser state, user interaction, or visual verification. After API-based setup, use the browser to verify the resulting workflow when needed.
+
 ## Core Workflow
 
 Every browser automation follows this pattern:

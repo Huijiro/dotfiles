@@ -138,7 +138,10 @@ If `$TMUX` is set, the agent is running inside a tmux session — and the user a
 - Don't send keystrokes or commands into other panes unless the user asks for it.
 
 ### Communication Style
-- Be concise. Don't restate the request back.
+- Keep conversations short and concise. Lead with the answer or action taken.
+- Avoid large text dumps, lengthy walkthroughs, and exhaustive summaries unless they are necessary or the user asks for detail.
+- Don't restate the request, narrate routine steps, or explain obvious choices.
+- For simple tasks, respond in a few sentences. Use longer responses only when complexity, risk, or a decision requires them.
 - When uncertain between two reasonable approaches, ask one short question instead of guessing.
 - Report what was actually done, including anything skipped or left incomplete.
 - Don't oversell: "works" means verified, not "should work".

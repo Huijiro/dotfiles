@@ -118,6 +118,8 @@ rg "error|Error|ERROR|warning|Warning|WARN|failed|Failed" /tmp/devserver-output.
 
 Based on the captured output:
 
+When a matching dev server is running, do not run the project's production build alongside it. Verify changes with the active dev server or HMR output and a separate typecheck or lint command. If a production build is required, stop the dev server first.
+
 - **Compilation/build errors** — Fix the code and explain the issue
 - **Runtime errors** — Diagnose the root cause from the stack trace
 - **HMR issues** — Sometimes a manual restart is needed; let the user know

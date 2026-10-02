@@ -63,7 +63,7 @@ vim.opt.conceallevel = 2
 
 -- Built-in completion
 vim.o.complete = ".,w,b,kspell" -- Use less sources
-vim.o.completeopt = "menuone,noselect,fuzzy,nosort" -- Use custom behavior
+vim.o.completeopt = "menuone,noinsert,fuzzy,nosort" -- Select the first candidate without inserting it
 vim.o.completetimeout = 100 -- Limit sources delay
 
 -- Neovim has built-in support for showing diagnostic messages. This configures

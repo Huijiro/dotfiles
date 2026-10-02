@@ -8,6 +8,11 @@ Switch to Last-Used Keyboard Layout=Meta+Alt+L,Meta+Alt+L,Switch to Last-Used Ke
 Switch to Next Keyboard Layout=Meta+Alt+K,Meta+Alt+K,Switch to Next Keyboard Layout
 _k_friendly_name=Keyboard Layout Switcher
 
+[com.onepassword.OnePassword]
+0CBF6DB75FD0BEDA7264BC9830928B42-Ctrl+Shift+Space=none,Ctrl+Shift+Space,1Password shortcut: Ctrl+Shift+Space
+D939E19A2E33D528C76068774C750F4F-=none,none,1Password shortcut:\s
+_k_friendly_name=1Password
+
 [kaccess]
 Toggle Screen Reader On and Off=Meta+Alt+S,Meta+Alt+S,Toggle Screen Reader On and Off
 _k_friendly_name=Accessibility
@@ -270,6 +275,10 @@ toggle do not disturb=none,none,Toggle do not disturb
 
 [services][net.local.ghostty.desktop]
 _launch=Alt+P
+
+[services][org.kde.spectacle.desktop]
+CurrentMonitorScreenShot=none
+OpenWithoutScreenshot=none
 
 [slack]
 9C1946DE31EF0153268C4731DABCA996-Ctrl+Shift+Space=Ctrl+Shift+Space,Ctrl+Shift+Space,Slack shortcut: Ctrl+Shift+Space

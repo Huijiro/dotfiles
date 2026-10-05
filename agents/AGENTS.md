@@ -55,6 +55,16 @@ These tools are faster and more user-friendly than their traditional counterpart
 - For non-trivial changes, state the plan in 1–3 lines before editing.
 - Surface assumptions explicitly ("assuming X, I'll do Y") instead of silently choosing.
 
+### Agent Handoff (Cost Control)
+The main loop re-bills its whole context every turn, so keep it small and hand token-heavy work to cheaper agents. This is mandatory, not optional.
+
+- **Recon → `scout` (Haiku).** Any open-ended search or read-many-files exploration ("where is X used", "how does Y work", surveying a module) goes to `scout`. Don't read more than ~3 files yourself to answer a question that scout can answer.
+- **Mechanical implementation → `worker` (Sonnet).** Well-specified multi-file edits, migrations, and bulk refactors go to `worker` with an explicit spec.
+- **Judgment → `planner` / `reviewer` (Opus).** Only for design decisions with real tradeoffs or a final review of a large diff. Never use them for routine work.
+- **Main loop stays on Sonnet.** Don't switch the driver to Opus; hand off to `planner`/`reviewer` instead.
+- Handoff briefs must be self-contained: goal, relevant paths, constraints, and the exact output format wanted. Ask for a short summary back, not raw dumps.
+- Delegate to run in parallel when workstreams are independent. A single handoff is justified when the work is context-heavy (recon, large reads) and the result is a short summary; don't hand off small edits you can do in one or two tool calls.
+
 ### Planning & Task Tracking
 Match the planning tool to the size of the work. Don't over-plan trivial changes; don't under-plan big ones.
 
